@@ -13,27 +13,22 @@ public class ClienteService {
 
 	@Autowired
 	ClienteRepository clienteRepository;
-	
+
 	//GET Id
 	public Cliente buscarPorId(Integer id) {
 		return clienteRepository.findById(id).get();
 	}
-	 
+
 	//GET Listar
 	public List<Cliente> listarTodos() {
 		return clienteRepository.findAll();
 	}
-	
+
 	//POST
 	public Cliente salvar(Cliente cliente) {
 		return clienteRepository.save(cliente);
 	}
 
-	//DELETE
-	public void remover(Integer id) {
-		clienteRepository.deleteById(id);
-	}
-	
 	//PUT
 	public Cliente atualizar(Integer id, Cliente cliente) {
 		Cliente registroAntigo = buscarPorId(id);
@@ -48,8 +43,7 @@ public class ClienteService {
 		registroAntigo.setId(id);
 		return clienteRepository.save(registroAntigo);
 	}
-	
-/*
+
 	public void removerLogico(Integer id) {
 		Cliente cliente = buscarPorId(id);
 
@@ -57,8 +51,5 @@ public class ClienteService {
 			cliente.setAtivo(false);
 			clienteRepository.save(cliente);
 		}
-	}
-*/
-	
-	
+	}	
 }
