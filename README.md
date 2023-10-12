@@ -1,10 +1,10 @@
 # API-GRUPO05
-Repositório do grupo 5 - disciplina API
+### Repositório do Grupo 5 - Disciplina API (E-Commerce Tradicional)
 
-Arthur Da Silva Monteiro                    
-Elizama De Sá Fortes                          
-Paulo Jeferson                          
-Pedro Henrique Carneinro                      
-Taissa Gouvea Bastos                      
-Victor Soares Da Costa                        
+<a src="https://github.com/0ArS0">Arthur Monteiro</a><br>
+<a src="https://github.com/Lyza-Fortes">Elizama Fortes</a><br>
+<a src="https://github.com/Paulo-Jeferson">Paulo Jeferson</a><br>
+<a src="https://github.com/PedroTeixeira13">Pedro Teixeira</a><br>
+<a src="https://github.com/Taissa-Bastos">Taissa Bastos</a><br>
+<a src="https://github.com/VictorSoares-C">Victor Soares</a>
 
