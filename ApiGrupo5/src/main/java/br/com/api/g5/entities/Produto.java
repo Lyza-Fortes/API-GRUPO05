@@ -36,6 +36,9 @@ public class Produto {
 	@NotNull
 	@Column(name = "valor_unit")
 	private Double valorUnit;
+	
+	@Column(name = "ativo_produto")
+	private Boolean ativo;
 
 	public Produto() {
 		super();
@@ -100,10 +103,18 @@ public class Produto {
 		this.valorUnit = valorUnit;
 	}
 
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
 	@Override
 	public String toString() {
 		return "Produto [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", dataFab=" + dataFab
-				+ ", qtdEstoque=" + qtdEstoque + ", valorUnit=" + valorUnit + "]";
+				+ ", qtdEstoque=" + qtdEstoque + ", valorUnit=" + valorUnit + ", ativo=" + ativo + "]";
 	}
 
 }

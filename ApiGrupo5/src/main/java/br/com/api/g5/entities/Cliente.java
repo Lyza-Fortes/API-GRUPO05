@@ -163,6 +163,7 @@ public class Cliente {
 	public String toString() {
 		return "Cliente [id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", telefoneFixo=" + telefoneFixo
 				+ ", celular=" + celular + ", nomeUsuario=" + nomeUsuario + ", cpf=" + cpf + ", email=" + email
-				+ ", dataNascimento=" + dataNascimento + "]";
+				+ ", dataNascimento=" + dataNascimento + ", senha=" + senha + ", ativo=" + ativo + "]";
 	}
+
 }
