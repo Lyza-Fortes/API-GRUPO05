@@ -29,15 +29,25 @@ public class Funcionario {
 	
 	@NotNull
 	@Size(max=10)
-	@Column(name="senha")
+	@Column(name="senha_funcionario")
 	private String senha;
-	
+
+	@NotNull
+	@Column(name = "ativo_funcionario")
+	private Boolean ativo = true;
+
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
 
 	public Funcionario() {
 		super();
 	}
 
-	
 	public Funcionario(Integer id, @NotNull String nome, @NotNull @Size(max = 13) String cpf,
 			@NotNull @Size(max = 10) String senha) {
 		super();
@@ -83,9 +93,5 @@ public class Funcionario {
 	@Override
 	public String toString() {
 		return "Funcionario [id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", senha=" + senha + "]";
-	}
-	
-	
-	
-	
+	}	
 }

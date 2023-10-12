@@ -51,26 +51,35 @@ public class Cliente {
 	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
 
+	@NotNull
+	@Size(max=10)
+	@Column(name = "senha_cliente")
+	private String senha;
+
+	@NotNull
+	@Column(name = "ativo_cliente")
+	private Boolean ativo = true;
+
 	public Cliente() {
 		super();
 	}
 
 	public Cliente(Integer id, @NotNull String nome, @NotNull String endereco, String telefoneFixo, String celular,
-			@NotNull String nomeUsuario, @NotNull @Size(max = 13) String cpf, @NotNull String email,
-			@NotNull LocalDate dataNascimento) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.endereco = endereco;
-		this.telefoneFixo = telefoneFixo;
-		this.celular = celular;
-		this.nomeUsuario = nomeUsuario;
-		this.cpf = cpf;
-		this.email = email;
-		this.dataNascimento = dataNascimento;
-	}
+            @NotNull String nomeUsuario, @NotNull @Size(max = 13) String cpf, @NotNull String email,
+            @NotNull LocalDate dataNascimento, @NotNull @Size(max = 10) String senha) {
+        this.id = id;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.telefoneFixo = telefoneFixo;
+        this.celular = celular;
+        this.nomeUsuario = nomeUsuario;
+        this.cpf = cpf;
+        this.email = email;
+        this.dataNascimento = dataNascimento;
+        this.senha = senha;
+    }
 
-	public Integer getId() {
+    public Integer getId() {
 		return id;
 	}
 
@@ -142,11 +151,18 @@ public class Cliente {
 		this.dataNascimento = dataNascimento;
 	}
 
+	public Boolean getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
+	}
+
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", telefoneFixo=" + telefoneFixo
 				+ ", celular=" + celular + ", nomeUsuario=" + nomeUsuario + ", cpf=" + cpf + ", email=" + email
 				+ ", dataNascimento=" + dataNascimento + "]";
 	}
-
 }

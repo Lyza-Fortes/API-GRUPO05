@@ -18,7 +18,7 @@ public class CategoriaService {
 	public Categoria buscarPorId(Integer id) {
 		return categoriaRepository.findById(id).get();
 	}
-	 
+
 	//GET Listar
 	public List<Categoria> listarTodos() {
 		return categoriaRepository.findAll();
@@ -45,19 +45,6 @@ public class CategoriaService {
 		registroAntigo.setId(id);
 		return categoriaRepository.save(registroAntigo);
 	}
-	
-/*
-	public void removerLogico(Integer id) {
-		Categoria categoria = buscarPorId(id);
-
-		if (categoria != null) {
-			categoria.setAtivo(false);
-			categoriaRepository.save(categoria);
-		}
-	}
-*/
-	
-	
 }
 
 
