@@ -159,6 +159,14 @@ public class Cliente {
 		this.ativo = ativo;
 	}
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", telefoneFixo=" + telefoneFixo
