@@ -1,18 +1,21 @@
 package br.com.api.g5.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDate; 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "produto")
 public class Produto {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_produto")
@@ -39,14 +42,20 @@ public class Produto {
 	
 	@Column(name = "ativo_produto")
 	private Boolean ativo;
+	
+	@ManyToOne
+	@JoinColumn(name="categoria_id")
+	private Categoria categoria;
+	
+	@ManyToOne
+	@JoinColumn(name="funcionario_id")
+	private Funcionario funcionario;
 
 	public Produto() {
-		super();
 	}
 
 	public Produto(Integer id, @NotNull String nome, @NotNull String descricao, @NotNull LocalDate dataFab,
 			Integer qtdEstoque, @NotNull Double valorUnit) {
-		super();
 		this.id = id;
 		this.nome = nome;
 		this.descricao = descricao;
