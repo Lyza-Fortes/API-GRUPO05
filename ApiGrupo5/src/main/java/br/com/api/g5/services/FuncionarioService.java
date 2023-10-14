@@ -36,7 +36,9 @@ public class FuncionarioService {
 		if (funcionario.getSenha() != null) {
 			registroAntigo.setSenha(funcionario.getSenha());
 		}
-
+		if (funcionario.getNome() != null) {
+			registroAntigo.setNome(funcionario.getNome());
+		}
 		registroAntigo.setId(id);
 		return funcionarioRepository.save(registroAntigo);
 	}

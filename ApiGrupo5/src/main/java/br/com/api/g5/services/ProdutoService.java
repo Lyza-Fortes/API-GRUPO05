@@ -45,6 +45,12 @@ public class ProdutoService {
 		if (produto.getNome() != null) {
 			registroAntigo.setNome(produto.getNome());
 		}
+		if (produto.getFuncionario() != null) {
+			registroAntigo.setFuncionario(produto.getFuncionario());
+		}
+		if (produto.getCategoria() != null) {
+			registroAntigo.setCategoria(produto.getCategoria());
+		}
 		registroAntigo.setId(id);
 		return produtoRepository.save(registroAntigo);
 	}

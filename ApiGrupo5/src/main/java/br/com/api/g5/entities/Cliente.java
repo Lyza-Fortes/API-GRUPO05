@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,10 +28,6 @@ public class Cliente {
 	@Column(name = "nome_cliente")
 	private String nome;
 
-	@NotNull
-	@Column(name = "endereco")
-	private String endereco;
-
 	@Column(name = "telefone_fixo")
 	private String telefoneFixo;
 
@@ -42,7 +39,7 @@ public class Cliente {
 	private String nomeUsuario;
 
 	@NotNull
-	@Size(max = 13)
+	@Size(max = 11)
 	@Column(name = "cpf_cliente")
 	private String cpf;
 
@@ -62,35 +59,37 @@ public class Cliente {
 	@NotNull
 	@Column(name = "ativo_cliente")
 	private Boolean ativo = true;
-	
-//	@OneToOne
-//	@JoinColumn(name="endereco_id")
-//	private Endereco endereco;
-	
+
+	@OneToOne
+	@JoinColumn(name="endereco_id")
+	private Endereco endereco;
+
 	@OneToMany
 	@JoinColumn(name="pedido_id")
 	private List<Pedido> pedido;
-	
+
 	public Cliente() {
 		super();
 	}
 
-	public Cliente(Integer id, @NotNull String nome, @NotNull String endereco, String telefoneFixo, String celular,
-            @NotNull String nomeUsuario, @NotNull @Size(max = 13) String cpf, @NotNull String email,
-            @NotNull LocalDate dataNascimento, @NotNull @Size(max = 10) String senha) {
-        this.id = id;
-        this.nome = nome;
-        this.endereco = endereco;
-        this.telefoneFixo = telefoneFixo;
-        this.celular = celular;
-        this.nomeUsuario = nomeUsuario;
-        this.cpf = cpf;
-        this.email = email;
-        this.dataNascimento = dataNascimento;
-        this.senha = senha;
-    }
+    public Cliente(Integer id, @NotNull String nome, String telefoneFixo, String celular, @NotNull String nomeUsuario,
+			@NotNull @Size(max = 11) String cpf, @NotNull String email, @NotNull LocalDate dataNascimento,
+			@NotNull @Size(max = 10) String senha, @NotNull Boolean ativo, Endereco endereco, List<Pedido> pedido) {
+		this.id = id;
+		this.nome = nome;
+		this.telefoneFixo = telefoneFixo;
+		this.celular = celular;
+		this.nomeUsuario = nomeUsuario;
+		this.cpf = cpf;
+		this.email = email;
+		this.dataNascimento = dataNascimento;
+		this.senha = senha;
+		this.ativo = ativo;
+		this.endereco = endereco;
+		this.pedido = pedido;
+	}
 
-    public Integer getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -104,14 +103,6 @@ public class Cliente {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
 	}
 
 	public String getTelefoneFixo() {
@@ -178,11 +169,19 @@ public class Cliente {
 		this.senha = senha;
 	}
 
-	@Override
-	public String toString() {
-		return "Cliente [id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", telefoneFixo=" + telefoneFixo
-				+ ", celular=" + celular + ", nomeUsuario=" + nomeUsuario + ", cpf=" + cpf + ", email=" + email
-				+ ", dataNascimento=" + dataNascimento + ", senha=" + senha + ", ativo=" + ativo + "]";
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+    @Override
+    public String toString() {
+        return "Cliente [id=" + id + ", nome=" + nome + ", telefoneFixo=" + telefoneFixo + ", celular=" + celular
+                + ", nomeUsuario=" + nomeUsuario + ", cpf=" + cpf + ", email=" + email + ", dataNascimento="
+                + dataNascimento + ", senha=" + senha + ", ativo=" + ativo + ", endereco=" + endereco + ", pedido="
+                + pedido + "]";
+    }
 }
