@@ -42,7 +42,7 @@ public class Cliente {
 	private String nomeUsuario;
 
 	@NotNull
-	@Size(max = 13)
+	@Size(max = 11)
 	@Column(name = "cpf_cliente")
 	private String cpf;
 
@@ -76,7 +76,7 @@ public class Cliente {
 	}
 
 	public Cliente(Integer id, @NotNull String nome, @NotNull String endereco, String telefoneFixo, String celular,
-            @NotNull String nomeUsuario, @NotNull @Size(max = 13) String cpf, @NotNull String email,
+            @NotNull String nomeUsuario, @NotNull @Size(max = 11) String cpf, @NotNull String email,
             @NotNull LocalDate dataNascimento, @NotNull @Size(max = 10) String senha) {
         this.id = id;
         this.nome = nome;

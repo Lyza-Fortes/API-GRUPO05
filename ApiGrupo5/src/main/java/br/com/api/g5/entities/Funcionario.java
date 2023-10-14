@@ -23,7 +23,7 @@ public class Funcionario {
 	private String nome;
 	
 	@NotNull
-	@Size(max=13)
+	@Size(max=11)
 	@Column(name="cpf_funcionario")
 	private String cpf;
 	
@@ -48,7 +48,7 @@ public class Funcionario {
 		super();
 	}
 
-	public Funcionario(Integer id, @NotNull String nome, @NotNull @Size(max = 13) String cpf,
+	public Funcionario(Integer id, @NotNull String nome, @NotNull @Size(max = 11) String cpf,
 			@NotNull @Size(max = 10) String senha) {
 		super();
 		this.id = id;

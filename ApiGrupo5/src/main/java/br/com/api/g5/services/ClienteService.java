@@ -36,9 +36,20 @@ public class ClienteService {
 		if (cliente.getNomeUsuario() != null) {
 			registroAntigo.setNomeUsuario(cliente.getNomeUsuario());
 		}
-
 		if (cliente.getEmail() != null) {
 			registroAntigo.setEmail(cliente.getEmail());
+		}
+		if (cliente.getNome() != null) {
+			registroAntigo.setNome(cliente.getNome());
+		}
+		if (cliente.getTelefoneFixo() != null) {
+			registroAntigo.setTelefoneFixo(cliente.getTelefoneFixo());
+		}
+		if (cliente.getCelular() != null) {
+			registroAntigo.setCelular(cliente.getCelular());
+		}
+		if (cliente.getSenha() != null) {
+			registroAntigo.setSenha(cliente.getSenha());
 		}
 		registroAntigo.setId(id);
 		return clienteRepository.save(registroAntigo);

@@ -41,6 +41,9 @@ public class CategoriaService {
 		if (categoria.getDescricao() != null) {
 			registroAntigo.setDescricao(categoria.getDescricao());
 		}
+		if (categoria.getNome() != null) {
+			registroAntigo.setNome(categoria.getNome());
+		}
 
 		registroAntigo.setId(id);
 		return categoriaRepository.save(registroAntigo);

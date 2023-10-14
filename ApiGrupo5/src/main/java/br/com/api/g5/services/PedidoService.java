@@ -34,14 +34,15 @@ public class PedidoService {
 		pedidoRepository.deleteById(id);
 	}
 	
-/*
-	public void removerLogico(Integer id) {
-		Categoria categoria = buscarPorId(id);
+	//PUT
+	public Pedido atualizar(Integer id, Pedido pedido) {
+		Pedido registroAntigo = buscarPorId(id);
 
-		if (categoria != null) {
-			categoria.setAtivo(false);
-			pedidoRepository.save(categoria);
+		if (pedido.getProdutos() != null) {
+			registroAntigo.setProdutos(pedido.getProdutos());
 		}
+		registroAntigo.setId(id);
+		return pedidoRepository.save(registroAntigo);
 	}
-*/
+
 }

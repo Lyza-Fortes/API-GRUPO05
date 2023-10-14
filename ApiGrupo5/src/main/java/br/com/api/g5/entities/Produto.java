@@ -1,6 +1,6 @@
 package br.com.api.g5.entities;
 
-import java.time.LocalDate; 
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "produto")
 public class Produto {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_produto")
@@ -39,16 +39,16 @@ public class Produto {
 	@NotNull
 	@Column(name = "valor_unit")
 	private Double valorUnit;
-	
+
 	@Column(name = "ativo_produto")
 	private Boolean ativo;
-	
+
 	@ManyToOne
-	@JoinColumn(name="categoria_id")
+	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
-	
+
 	@ManyToOne
-	@JoinColumn(name="funcionario_id")
+	@JoinColumn(name = "funcionario_id")
 	private Funcionario funcionario;
 
 	public Produto() {
@@ -120,10 +120,27 @@ public class Produto {
 		this.ativo = ativo;
 	}
 
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
 	@Override
 	public String toString() {
 		return "Produto [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", dataFab=" + dataFab
-				+ ", qtdEstoque=" + qtdEstoque + ", valorUnit=" + valorUnit + ", ativo=" + ativo + "]";
+				+ ", qtdEstoque=" + qtdEstoque + ", valorUnit=" + valorUnit + ", ativo=" + ativo + ", categoria="
+				+ categoria + ", funcionario=" + funcionario + "]";
 	}
 
 }
