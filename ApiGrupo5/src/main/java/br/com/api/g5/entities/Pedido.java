@@ -1,12 +1,16 @@
 package br.com.api.g5.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -22,6 +26,14 @@ public class Pedido {
 	@NotNull
 	@Column(name = "data_pedido")
 	private LocalDateTime dataPedido;
+	
+	@ManyToMany
+	@JoinTable(
+			name="pedido_produto",
+			joinColumns=@JoinColumn(name="pedido_id"),
+			inverseJoinColumns=@JoinColumn(name="produto_id")
+			)
+	private List<Produto> produtos;
 
 	public Pedido() {
 		super();

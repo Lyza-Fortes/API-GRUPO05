@@ -12,6 +12,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name="funcionario")
 public class Funcionario {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_funcionario")
@@ -20,7 +21,6 @@ public class Funcionario {
 	@NotNull
 	@Column(name="nome_funcionario")
 	private String nome;
-	
 	
 	@NotNull
 	@Size(max=13)
