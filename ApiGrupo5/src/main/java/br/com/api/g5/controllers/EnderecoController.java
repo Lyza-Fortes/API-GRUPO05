@@ -12,38 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.api.g5.entities.Cliente;
-import br.com.api.g5.services.ClienteService;
+import br.com.api.g5.entities.Endereco;
+import br.com.api.g5.services.EnderecoService;
 
 @RestController
-@RequestMapping("/cliente")
-public class ClienteController {
+@RequestMapping("/endereco")
+public class EnderecoController {
+
 	@Autowired
-	ClienteService clienteService;
-	
+	EnderecoService enderecoService;
+
 	@GetMapping("/buscar/{id}")
-	public Cliente buscarPorId(@PathVariable Integer id) {
-		return clienteService.buscarPorId(id);
+	public Endereco buscarPorId(@PathVariable Integer id) {
+		return enderecoService.buscarPorId(id);
 	}
 
 	@GetMapping("/listar")
-	public List<Cliente> listarTodos() {
-		return clienteService.listarTodos();
+	public List<Endereco> listarTodos() {
+		return enderecoService.listarTodos();
 	}
 	
 	@PostMapping("/salvar")
-	public Cliente salvar(@RequestBody Cliente cliente) {
-		return clienteService.salvar(cliente);
+	public Endereco salvar(@RequestBody Endereco endereco) {
+		return enderecoService.salvar(endereco);
 
 	}
 	
 	@PutMapping("/atualizar/{id}")
-	public Cliente atualizar(@PathVariable Integer id, @RequestBody Cliente cliente) {
-		return clienteService.atualizar(id, cliente);
+	public Endereco atualizar(@PathVariable Integer id, @RequestBody Endereco endereco) {
+		return enderecoService.atualizar(id, endereco);
 	}
 	
 	@DeleteMapping("/remover/{id}")
-	public void removerLogico(@PathVariable Integer id) {
-		clienteService.removerLogico(id);
+	public void remover(@PathVariable Integer id) {
+		enderecoService.remover(id);
 	}
 }
