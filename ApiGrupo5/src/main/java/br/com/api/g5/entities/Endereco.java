@@ -130,4 +130,7 @@ public class Endereco {
                 + ", complemento=" + complemento + ", bairro=" + bairro + ", localidade=" + localidade + ", uf=" + uf
                 + "]";
     }
+    
+    //Comentando só se precisar. Se a classe tive igual a do grupo 3 com @OneToMany, etc
+    //@JsonProperty(access=JsonProperty.Access.READ_ONLY)
 }

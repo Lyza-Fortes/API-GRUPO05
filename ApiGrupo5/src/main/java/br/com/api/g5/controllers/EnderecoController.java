@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.api.g5.dto.EnderecoDto;
 import br.com.api.g5.entities.Endereco;
 import br.com.api.g5.services.EnderecoService;
 
@@ -33,7 +34,7 @@ public class EnderecoController {
 	}
 	
 	@PostMapping("/salvar")
-	public Endereco salvar(@RequestBody Endereco endereco) {
+	public Endereco salvar(@RequestBody EnderecoDto endereco) {
 		return enderecoService.salvar(endereco);
 
 	}
