@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "endereco")
+@Table(name = "tb_endereco")
 public class Endereco {
 
     @Id
@@ -130,4 +130,7 @@ public class Endereco {
                 + ", complemento=" + complemento + ", bairro=" + bairro + ", localidade=" + localidade + ", uf=" + uf
                 + "]";
     }
+    
+    //Comentando só se precisar. Se a classe tive igual a do grupo 3 com @OneToMany, etc
+    //@JsonProperty(access=JsonProperty.Access.READ_ONLY)
 }

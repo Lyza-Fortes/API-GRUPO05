@@ -17,6 +17,7 @@ import br.com.api.g5.services.PedidoService;
 @RestController
 @RequestMapping("/pedido")
 public class PedidoController {
+	
 	@Autowired
 	PedidoService pedidoService;
 	
@@ -33,7 +34,6 @@ public class PedidoController {
 	@PostMapping("/salvar")
 	public Pedido salvar(@RequestBody Pedido pedido) {
 		return pedidoService.salvar(pedido);
-
 	}
 	
 //	@PutMapping("/atualizar/{id}")

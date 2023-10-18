@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "cliente")
+@Table(name = "tb_cliente")
 public class Cliente {
 
 	@Id
@@ -67,6 +67,10 @@ public class Cliente {
 	@OneToMany
 	@JoinColumn(name="pedido_id")
 	private List<Pedido> pedido;
+	
+	@OneToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	public Cliente() {
 		super();
