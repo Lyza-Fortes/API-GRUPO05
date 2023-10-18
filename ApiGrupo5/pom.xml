@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>br.com.api</groupId>
 	<artifactId>g5</artifactId>
-	<version>8.0.0</version>
+	<version>8.0.1</version>
 	<name>ApiGrupo5</name>
 	<description>Projeto SpringBoot - Grupo5</description>
 	<properties>
