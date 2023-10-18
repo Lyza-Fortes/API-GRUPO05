@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -25,10 +24,6 @@ public class User {
 	private String nomeUsuario;
 
 	private String email;
-
-	@OneToOne
-	@JoinColumn(name = "endereco_id")
-	private Endereco endereco;
 
 	@ManyToMany
 	@JoinTable(name = "usuario_role", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -46,7 +41,6 @@ public class User {
 		this.idUser = idUser;
 		this.nomeUsuario = nomeUsuario;
 		this.email = email;
-		this.endereco = endereco;
 		this.roles = roles;
 		this.password = password;
 	}
@@ -91,18 +85,10 @@ public class User {
 		this.roles = roles;
 	}
 
-	public Endereco getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
-	}
-
 	@Override
 	public String toString() {
-		return "User [idUser=" + idUser + ", nomeUsuario=" + nomeUsuario + ", email=" + email + ", endereco=" + endereco
-				+ ", roles=" + roles + ", password=" + password + "]";
+		return "User [idUser=" + idUser + ", nomeUsuario=" + nomeUsuario + ", email=" + email + ", roles=" + roles
+				+ ", password=" + password + "]";
 	}
 
 }
