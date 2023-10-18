@@ -14,12 +14,10 @@ public class UserDTO {
 	private String complementoAdicional;
 
 	public UserDTO() {
-		super();
 	}
 	
 	public UserDTO(String nomeUsuario, String email, Set<String> roles, String password, String cep, String numero,
 			String complementoAdicional) {
-		super();
 		this.nomeUsuario = nomeUsuario;
 		this.email = email;
 		this.roles = roles;

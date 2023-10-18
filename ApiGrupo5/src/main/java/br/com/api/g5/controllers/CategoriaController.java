@@ -14,10 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.api.g5.entities.Categoria;
 import br.com.api.g5.services.CategoriaService;
+import br.com.api.g5.services.EmailService;
 
 @RestController
 @RequestMapping("/categoria")
 public class CategoriaController {
+	
+	private EmailService emailService;
+    @Autowired
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
+    
 	@Autowired
 	CategoriaService categoriaService;
 	
@@ -28,6 +36,7 @@ public class CategoriaController {
 
 	@GetMapping("/listar")
 	public List<Categoria> listarTodos() {
+		emailService.envioEmailCadastro();
 		return categoriaService.listarTodos();
 	}
 	

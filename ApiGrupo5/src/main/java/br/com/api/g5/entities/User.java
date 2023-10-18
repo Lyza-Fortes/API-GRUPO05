@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name = "user")
+@Table(name = "tb_user")
 public class User {
 
 	@Id
