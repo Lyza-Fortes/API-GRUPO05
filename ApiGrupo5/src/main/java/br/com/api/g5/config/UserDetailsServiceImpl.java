@@ -38,17 +38,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		
 		/* Procura um usuário no repositório com base no email */
 		Optional<User> userRes = userRepo.findByEmail(email);
-		/* O uso do Optional indica que pode ou não haver um usuário correspondente ao email fornecido. Se não houver um usuário com esse email, o Optional estará vazio, e um UsernameNotFoundException será lançado para indicar que o usuário não foi encontrado. Se um usuário for encontrado, o Optional conterá esse usuário.*/
+		/* O uso do Optional indica que pode ou não haver um usuário correspondente ao email fornecido. */
+		
+		/*Se não houver um usuário com esse email, o Optional estará vazio, e um UsernameNotFoundException será lançado para indicar que o usuário não foi encontrado. */
 		if (userRes.isEmpty()) {
 			throw new UsernameNotFoundException("Não foi possível encontrar usuário com o email = " + email);
 		}
 
-		/* Cria um objeto UserDetails usando informações do usuário encontrado. */
+		/*Se um usuário for encontrado, o Optional conterá esse usuário e um objeto UserDetails será criado usando informações do usuário encontrado. */
 		return new org.springframework.security.core.userdetails.User(
 				email, /* nome de usuário (email)*/
 				userRes.get().getPassword(), /* Senha do usuário. */
 				roleRepo.roles(email) /* Chamando um método roles no repositório RoleRepository para recuperar as autorizacoes (roles) associadas a um usuário com base no email. */
-				.stream()/* Converte a coleção de autorizacoes obtida a partir do repositório em um fluxo */.map(role -> new SimpleGrantedAuthority(role.getName().name())) /* Mapeando cada autorizacao para um objeto SimpleGrantedAuthority, isso é necessário porque o Spring Security espera que as autorizacoes do usuário sejam objetos GrantedAuthority.*/
+				.stream()/* Converte a coleção de autorizacoes obtida a partir do repositório em um fluxo */
+				.map(role -> new SimpleGrantedAuthority(role.getName().name())) /* Mapeando cada autorizacao para um objeto SimpleGrantedAuthority, isso é necessário porque o Spring Security espera que as autorizacoes do usuário sejam objetos GrantedAuthority.*/
 				.collect(Collectors.toList()) /* Coleta as autorizações mapeadas anteriormente para uma lista, está lista é o terceiro argumento passado no construtor User */
 				); // essa linha de codigo (47 - 53) está criando uma instância de User para representar um usuário autenticado com seu email, senha e as suas autorizações.
 	}
