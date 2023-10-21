@@ -13,12 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import br.com.api.g5.dto.UserDTO;
 import br.com.api.g5.entities.User;
 
 @Configuration
@@ -106,7 +106,7 @@ public class EmailService {
 		try {
 			MimeMessageHelper helper = new MimeMessageHelper(mensagemCadastro, true);
 			helper.setFrom("grupo5api20232@gmail.com");
-			helper.setTo("pedrohcrt@gmail.com");
+			helper.setTo("victorsoares.c@gmail.com");
 			helper.setSubject("titulo legal");
 
 			LocalDate localDate = LocalDate.now();
@@ -120,14 +120,14 @@ public class EmailService {
 			builder.append("<html>\r\n");
 			builder.append("	<body>\r\n");
 			builder.append("		<div align=\"center\">\r\n");
-			builder.append("			<h1>abluébluéblué</h1>\r\n");
+			builder.append("			<img src=\"cid:logo\">\r\n");
 			builder.append("		</div>\r\n");
 			builder.append("		<br>\r\n");
 
 			builder.append("		<center>");
 			builder.append("			<table border='2' cellpadding='4'>\r\n");
 			builder.append("				<tr><th> Nome </th> <th> Email </th> <th> Perfis </th> <th> Data de entrega </th> </tr>\r\n");
-
+			
 			List<User> listaUsuarios = userService.listarTodos();
 			for(User user : listaUsuarios){
 				builder.append("		    <tr>\r\n");
@@ -157,6 +157,8 @@ public class EmailService {
 			builder.append("</html>");
 
 			helper.setText(builder.toString(), true);
+			ClassPathResource img = new ClassPathResource("img/logo_grupo_5.png");
+			helper.addInline("logo", img);
 			emailSender.send(mensagemCadastro);
 
 		} catch (MessagingException e) {
