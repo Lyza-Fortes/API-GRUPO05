@@ -43,6 +43,7 @@ public class FuncionarioService {
 		return funcionarioRepository.save(registroAntigo);
 	}
 
+	//DELETE
 	public void removerLogico(Integer id) {
 		Funcionario funcionario = buscarPorId(id);
 

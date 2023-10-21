@@ -10,6 +10,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +27,19 @@ import br.com.api.g5.entities.User;
 import br.com.api.g5.enums.TipoRoleEnum;
 import br.com.api.g5.repositories.EnderecoRepository;
 import br.com.api.g5.repositories.RoleRepository;
+import br.com.api.g5.services.EmailService;
 import br.com.api.g5.services.EnderecoService;
 import br.com.api.g5.services.UserService;
 
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
+	private EmailService emailService;
+    @Autowired
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
 
 	@Autowired
 	UserService userService;
@@ -97,7 +106,7 @@ public class UserController {
 		String encodedPass = passwordEncoder.encode(user.getPassword());
 		usuarioResumido.setPassword(encodedPass);
 
-//		emailService.envioEmailCadastro(email, user); vamos ver na aula de terça-feira
+		emailService.envioEmailCadastro(user);
 
 		return userService.save(usuarioResumido);
 	}
@@ -122,6 +131,11 @@ public class UserController {
 		} catch (AuthenticationException authExc) {
 			throw new RuntimeException("Credenciais Invalidas");
 		}
+	}
+
+	@DeleteMapping("/remover/{id}")
+	public void remover(@PathVariable Integer id) {
+		userService.remover(id);
 	}
 
 }

@@ -34,7 +34,7 @@ public class UserDTO {
 	public void setNomeUsuario(String nomeUsuario) {
 		this.nomeUsuario = nomeUsuario;
 	}
-
+	
 	public String getEmail() {
 		return email;
 	}
