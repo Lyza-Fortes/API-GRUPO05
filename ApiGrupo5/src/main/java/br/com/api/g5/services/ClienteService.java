@@ -81,6 +81,7 @@ public class ClienteService {
 		if (cliente.getPassword() != null) {
 			registroAntigo.setPassword(cliente.getPassword());
 		}
+		
 		registroAntigo.setId(id);
 		return clienteRepository.save(registroAntigo);
 	}

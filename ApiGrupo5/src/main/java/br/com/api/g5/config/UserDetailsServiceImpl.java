@@ -55,4 +55,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 				.collect(Collectors.toList()) /* Coleta as autorizações mapeadas anteriormente para uma lista, está lista é o terceiro argumento passado no construtor User */
 				); // essa linha de codigo (47 - 53) está criando uma instância de User para representar um usuário autenticado com seu email, senha e as suas autorizações.
 	}
+
 }

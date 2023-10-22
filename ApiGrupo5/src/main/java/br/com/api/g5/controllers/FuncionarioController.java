@@ -31,11 +31,11 @@ public class FuncionarioController {
 		return funcionarioService.listarTodos();
 	}
 	
-	@PostMapping("/salvar")
-	public Funcionario salvar(@RequestBody Funcionario funcionario) {
-		return funcionarioService.salvar(funcionario);
-
-	}
+//	@PostMapping("/salvar")
+//	public Funcionario salvar(@RequestBody Funcionario funcionario) {
+//		return funcionarioService.salvar(funcionario);
+//
+//	}
 	
 	@PutMapping("/atualizar/{id}")
 	public Funcionario atualizar(@PathVariable Integer id, @RequestBody Funcionario funcionario) {
