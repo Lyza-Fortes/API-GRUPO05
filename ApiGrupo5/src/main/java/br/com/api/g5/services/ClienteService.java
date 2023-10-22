@@ -43,7 +43,7 @@ public class ClienteService {
 		clienteConvertido.setCpf(cliente.getCpf());
 		clienteConvertido.setEmail(cliente.getEmail());
 		clienteConvertido.setDataNascimento(cliente.getDataNascimento());
-		clienteConvertido.setSenha(cliente.getSenha());
+		clienteConvertido.setPassword(cliente.getPassword());
 		clienteConvertido.setBairro(cliente.getEndereco().getBairro());
 		clienteConvertido.setCep(cliente.getEndereco().getCep());
 		clienteConvertido.setComplemento(cliente.getEndereco().getComplemento());
@@ -78,8 +78,8 @@ public class ClienteService {
 		if (cliente.getCelular() != null) {
 			registroAntigo.setCelular(cliente.getCelular());
 		}
-		if (cliente.getSenha() != null) {
-			registroAntigo.setSenha(cliente.getSenha());
+		if (cliente.getPassword() != null) {
+			registroAntigo.setPassword(cliente.getPassword());
 		}
 		registroAntigo.setId(id);
 		return clienteRepository.save(registroAntigo);

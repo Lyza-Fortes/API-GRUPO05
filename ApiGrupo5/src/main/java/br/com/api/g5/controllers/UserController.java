@@ -1,11 +1,14 @@
 package br.com.api.g5.controllers;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -20,15 +23,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.api.g5.config.JWTUtil;
 import br.com.api.g5.dto.LoginDTO;
+import br.com.api.g5.dto.MessageResponseDTO;
 import br.com.api.g5.dto.UserDTO;
+import br.com.api.g5.entities.Cliente;
 import br.com.api.g5.entities.Endereco;
+import br.com.api.g5.entities.Funcionario;
 import br.com.api.g5.entities.Role;
 import br.com.api.g5.entities.User;
 import br.com.api.g5.enums.TipoRoleEnum;
 import br.com.api.g5.repositories.EnderecoRepository;
 import br.com.api.g5.repositories.RoleRepository;
+import br.com.api.g5.services.ClienteService;
 import br.com.api.g5.services.EmailService;
 import br.com.api.g5.services.EnderecoService;
+import br.com.api.g5.services.FuncionarioService;
 import br.com.api.g5.services.UserService;
 
 @RestController
@@ -48,6 +56,12 @@ public class UserController {
 	EnderecoRepository enderecoRepository;
 	
 	@Autowired
+	ClienteService clienteService;
+	
+	@Autowired
+	FuncionarioService funcionarioService;
+	
+	@Autowired
 	EnderecoService enderecoService;
 
 	@Autowired
@@ -63,30 +77,10 @@ public class UserController {
 	private PasswordEncoder passwordEncoder;
 
 	@PostMapping("/registro")
-	public User cadastro(@RequestParam String email, @RequestBody UserDTO user) {
+	public ResponseEntity<?> cadastro(@RequestParam String email, @RequestBody UserDTO user) {
 
 		Set<String> strRoles = user.getRoles();
 		Set<Role> roles = new HashSet<>();
-
-		if (strRoles == null) {
-			Role userRole = roleRepository.findByName(TipoRoleEnum.ROLE_CLIENTE)
-					.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
-			roles.add(userRole);
-		} else {
-			strRoles.forEach(role -> {
-				switch (role) {
-				case "FUNCIONARIO":
-					Role adminRole = roleRepository.findByName(TipoRoleEnum.ROLE_FUNCIONARIO)
-							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
-					roles.add(adminRole);
-					break;
-				case "CLIENTE":
-					Role userRole = roleRepository.findByName(TipoRoleEnum.ROLE_CLIENTE)
-							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
-					roles.add(userRole);
-				}
-			});
-		}
 
 		Endereco viaCep = enderecoService.pesquisarEndereco(user.getCep());
 		Endereco enderecoNovo = new Endereco();
@@ -98,17 +92,64 @@ public class UserController {
 		enderecoNovo.setNumero(user.getNumero());
 		enderecoNovo.setUf(viaCep.getUf());
 		enderecoRepository.save(enderecoNovo);
-
+		List<Endereco> enderecos = new ArrayList<>();
+		enderecos.add(enderecoNovo);
+		
 		User usuarioResumido = new User();
 		usuarioResumido.setNomeUsuario(user.getNomeUsuario());
 		usuarioResumido.setEmail(user.getEmail());
 		usuarioResumido.setRoles(roles);
 		String encodedPass = passwordEncoder.encode(user.getPassword());
 		usuarioResumido.setPassword(encodedPass);
+		userService.save(usuarioResumido);
+		
+		if (strRoles == null) {
+			Role userRole = roleRepository.findByName(TipoRoleEnum.ROLE_CLIENTE)
+					.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
+			roles.add(userRole);
+		} else {
+			strRoles.forEach(role -> {
+				switch (role) {
+				case "FUNCIONARIO":
+					Role adminRole = roleRepository.findByName(TipoRoleEnum.ROLE_FUNCIONARIO)
+							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
+					roles.add(adminRole);
+					Funcionario funcionario = new Funcionario();
+					funcionario.setNome(user.getNome());
+					funcionario.setCelular(user.getCelular());
+					funcionario.setTelefoneFixo(user.getTelefoneFixo());
+					funcionario.setNomeUsuario(user.getNomeUsuario());
+					funcionario.setPassword(user.getPassword());
+					funcionario.setCpf(user.getCpf());
+					funcionario.setDataNascimento(user.getDataNascimento());
+					funcionario.setEmail(user.getEmail());
+					funcionario.setEndereco(enderecoNovo);
+					funcionario.setUser(usuarioResumido);
+					funcionarioService.salvar(funcionario);
+					break;
+				case "CLIENTE":
+					Role userRole = roleRepository.findByName(TipoRoleEnum.ROLE_CLIENTE)
+							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
+					roles.add(userRole);
+					Cliente cliente = new Cliente();
+					cliente.setNome(user.getNome());
+					cliente.setTelefoneFixo(user.getTelefoneFixo());
+					cliente.setCelular(user.getCelular());
+					cliente.setNomeUsuario(user.getNomeUsuario());
+					cliente.setPassword(user.getPassword());
+					cliente.setCpf(user.getCpf());
+					cliente.setDataNascimento(user.getDataNascimento());
+					cliente.setEmail(user.getEmail());
+					cliente.setEndereco(enderecoNovo);
+					cliente.setUser(usuarioResumido);
+					clienteService.salvar(cliente);
+				}
+			});
+		}
 
 		emailService.envioEmailCadastro(user);
 
-		return userService.save(usuarioResumido);
+		return ResponseEntity.ok(new MessageResponseDTO("Cadastro finalizado com sucesso!"));
 	}
 
 	@PostMapping("/login")

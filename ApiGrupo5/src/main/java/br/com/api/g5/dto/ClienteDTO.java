@@ -11,7 +11,7 @@ public class ClienteDTO {
 	private String cpf;
 	private String email;
 	private LocalDate dataNascimento;
-	private String senha;
+	private String password;
 	private String bairro;
 	private String cep;
 	private String complemento;
@@ -19,11 +19,14 @@ public class ClienteDTO {
 	private String logradouro;
 	private String numero;
 	private String uf;
-
-	public ClienteDTO(String nome, String telefoneFixo, String celular, String nomeUsuario, String cpf, String email,
-			LocalDate dataNascimento, String senha, String bairro, String cep, String complemento, String localidade,
-			String logradouro, String numero, String uf) {
+	
+	public ClienteDTO() {
 		super();
+	}
+	
+	public ClienteDTO(String nome, String telefoneFixo, String celular, String nomeUsuario, String cpf, String email,
+			LocalDate dataNascimento, String password, String bairro, String cep, String complemento, String localidade,
+			String logradouro, String numero, String uf) {
 		this.nome = nome;
 		this.telefoneFixo = telefoneFixo;
 		this.celular = celular;
@@ -31,7 +34,7 @@ public class ClienteDTO {
 		this.cpf = cpf;
 		this.email = email;
 		this.dataNascimento = dataNascimento;
-		this.senha = senha;
+		this.password = password;
 		this.bairro = bairro;
 		this.cep = cep;
 		this.complemento = complemento;
@@ -39,10 +42,6 @@ public class ClienteDTO {
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.uf = uf;
-	}
-
-	public ClienteDTO() {
-		super();
 	}
 
 	public String getNome() {
@@ -101,12 +100,12 @@ public class ClienteDTO {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String getSenha() {
-		return senha;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getBairro() {

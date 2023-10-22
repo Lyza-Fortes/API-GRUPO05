@@ -33,8 +33,8 @@ public class FuncionarioService {
 	public Funcionario atualizar(Integer id, Funcionario funcionario) {
 		Funcionario registroAntigo = buscarPorId(id);
 
-		if (funcionario.getSenha() != null) {
-			registroAntigo.setSenha(funcionario.getSenha());
+		if (funcionario.getPassword() != null) {
+			registroAntigo.setPassword(funcionario.getPassword());
 		}
 		if (funcionario.getNome() != null) {
 			registroAntigo.setNome(funcionario.getNome());
