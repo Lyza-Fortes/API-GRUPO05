@@ -17,31 +17,30 @@ public class Endereco {
     @Column(name = "id_endereco")
     private Integer id;
 
-    @NotNull
+    @NotNull(message="Campo CEP não pode ser nulo")
     @Column(name="cep")
     private String cep;
 
-    @NotNull
+    @NotNull(message="Campo logradouro não pode ser nulo")
     @Column(name="logradouro")
     private String logradouro;
 
-    @NotNull
+    @NotNull(message="Campo número não pode ser nulo")
     @Column(name="numero")
     private String numero;
 
-    @NotNull
     @Column(name="complemento")
     private String complemento;
 
-    @NotNull
+    @NotNull(message="Campo bairro não pode ser nulo")
     @Column(name="bairro")
     private String bairro;
 
-    @NotNull
+    @NotNull(message="Campo localidade não pode ser nulo")
     @Column(name="localidade")
     private String localidade;
 
-    @NotNull
+    @NotNull(message="Campo UF não pode ser nulo")
     @Column(name="uf")
     private String uf;
 

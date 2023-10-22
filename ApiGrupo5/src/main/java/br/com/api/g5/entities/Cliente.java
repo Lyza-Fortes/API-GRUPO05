@@ -1,6 +1,6 @@
 package br.com.api.g5.entities;
 
-import java.time.LocalDate; 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,8 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "tb_cliente")
@@ -24,34 +28,39 @@ public class Cliente {
 	@Column(name="id_cliente")
 	private Integer id;
 
-	@NotNull
+	@NotNull(message="Campo nome de cliente não pode ser nulo")
 	@Column(name = "nome_cliente")
 	private String nome;
-
+	
+	@Pattern(regexp = "\\(\\d{2}\\) \\d{4}-\\d{4}")
 	@Column(name = "telefone_fixo_cliente")
 	private String telefoneFixo;
 
+	@Pattern(regexp = "\\(\\d{2}\\) \\d{5}-\\d{4}")
 	@Column(name = "celular_cliente")
 	private String celular;
 
-	@NotNull
+	@NotNull(message="Campo nome usuário não pode ser nulo")
 	@Column(name = "nome_usuario_cliente")
 	private String nomeUsuario;
 
-	@NotNull
-	@Size(max = 11)
+	@NotNull(message="Campo CPF não pode ser nulo")
+	@CPF
+	@Size(max = 14)
 	@Column(name = "cpf_cliente")
 	private String cpf;
 
-	@NotNull
+	@NotNull(message="Campo e-mail não pode ser nulo")
+	@Email
+	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
 	@Column(name = "email_cliente")
 	private String email;
 
-	@NotNull
+	@NotNull(message="Campo data de nascimento não pode ser nulo")
 	@Column(name = "data_nascimento_cliente")
 	private LocalDate dataNascimento;
 
-	@NotNull
+	@NotNull(message="Campo senha não pode ser nulo")
 	@Size(max=10)
 	@Column(name = "password_cliente")
 	private String password;

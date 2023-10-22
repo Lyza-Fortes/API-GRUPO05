@@ -26,22 +26,22 @@ public class Produto {
 	@Column(name = "id_produto")
 	private Integer id;
 
-	@NotNull
+	@NotNull(message="Campo nome do produto não pode ser nulo")
 	@Column(name = "nome_produto")
 	private String nome;
 
-	@NotNull
+	@NotNull(message="Campo descrição do produto não pode ser nulo")
 	@Column(name = "descricao_produto")
 	private String descricao;
 
-	@NotNull
+	@NotNull(message="Campo data de fabricação não pode ser nulo")
 	@Column(name = "data_fab")
 	private LocalDate dataFab;
 
 	@Column(name = "qtd_estoque")
 	private Integer qtdEstoque;
 
-	@NotNull
+	@NotNull(message="Campo valor unitário não pode ser nulo")
 	@Column(name = "valor_unit")
 	private Double valorUnit;
 
@@ -62,7 +62,8 @@ public class Produto {
         joinColumns = @JoinColumn(name = "produto_id")
     )
     @MapKeyJoinColumn(name = "pedido_id")
-    @Column(name = "quantidade")
+	@NotNull(message="É necessário definir uma quantidade para comprar.")
+	@Column(name = "quantidade")
     private Map<Pedido, Integer> itemQuantidade = new HashMap<>();
 	
 	public Produto() {
