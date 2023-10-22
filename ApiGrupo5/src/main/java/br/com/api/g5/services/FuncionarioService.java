@@ -19,13 +19,13 @@ public class FuncionarioService {
 
 	@Autowired
 	FuncionarioRepository funcionarioRepository;
-	
+
 	@Autowired
 	EnderecoService enderecoService;
-	
+
 	@Autowired
 	EnderecoRepository enderecoRepository;
-	
+
 	@Autowired
 	UserService userService;
 
@@ -98,36 +98,36 @@ public class FuncionarioService {
 		}
 		if (funcionarioDTO.getCep() != null) {
 			Endereco viaCep = enderecoService.pesquisarEndereco(funcionarioDTO.getCep());
-	        Endereco enderecoNovo = new Endereco();
-	        enderecoNovo.setBairro(viaCep.getBairro());
-	        enderecoNovo.setCep(funcionarioDTO.getCep());
-	        enderecoNovo.setComplemento(funcionarioDTO.getComplemento());
-	        enderecoNovo.setLocalidade(viaCep.getLocalidade());
-	        enderecoNovo.setLogradouro(viaCep.getLogradouro());
-	        enderecoNovo.setNumero(funcionarioDTO.getNumero());
-	        enderecoNovo.setUf(viaCep.getUf());
-	        enderecoRepository.save(enderecoNovo);
-	        registroAntigo.setEndereco(enderecoNovo);
+			Endereco enderecoNovo = new Endereco();
+			enderecoNovo.setBairro(viaCep.getBairro());
+			enderecoNovo.setCep(funcionarioDTO.getCep());
+			enderecoNovo.setComplemento(funcionarioDTO.getComplemento());
+			enderecoNovo.setLocalidade(viaCep.getLocalidade());
+			enderecoNovo.setLogradouro(viaCep.getLogradouro());
+			enderecoNovo.setNumero(funcionarioDTO.getNumero());
+			enderecoNovo.setUf(viaCep.getUf());
+			enderecoRepository.save(enderecoNovo);
+			registroAntigo.setEndereco(enderecoNovo);
 		}
 		FuncionarioAtualizarDTO funcionarioConvertido = converterFuncionarioAtualizarDTO(registroAntigo);
 		registroAntigo.setId(id);
 		funcionarioRepository.save(registroAntigo);
 		return funcionarioConvertido;
 	}
-	
+
 	// Conversão DTO
-		public FuncionarioAtualizarDTO converterFuncionarioAtualizarDTO(Funcionario funcionario) {
-			FuncionarioAtualizarDTO funcionarioConvertido = new FuncionarioAtualizarDTO();
-			funcionarioConvertido.setNome(funcionario.getNome());
-			funcionarioConvertido.setTelefoneFixo(funcionario.getTelefoneFixo());
-			funcionarioConvertido.setCelular(funcionario.getCelular());
-			funcionarioConvertido.setEmail(funcionario.getEmail());
-			funcionarioConvertido.setPassword(funcionario.getPassword());
-			funcionarioConvertido.setCep(funcionario.getEndereco().getCep());
-			funcionarioConvertido.setComplemento(funcionario.getEndereco().getComplemento());
-			funcionarioConvertido.setNumero(funcionario.getEndereco().getNumero());
-			return funcionarioConvertido;
-		}
+	public FuncionarioAtualizarDTO converterFuncionarioAtualizarDTO(Funcionario funcionario) {
+		FuncionarioAtualizarDTO funcionarioConvertido = new FuncionarioAtualizarDTO();
+		funcionarioConvertido.setNome(funcionario.getNome());
+		funcionarioConvertido.setTelefoneFixo(funcionario.getTelefoneFixo());
+		funcionarioConvertido.setCelular(funcionario.getCelular());
+		funcionarioConvertido.setEmail(funcionario.getEmail());
+		funcionarioConvertido.setPassword(funcionario.getPassword());
+		funcionarioConvertido.setCep(funcionario.getEndereco().getCep());
+		funcionarioConvertido.setComplemento(funcionario.getEndereco().getComplemento());
+		funcionarioConvertido.setNumero(funcionario.getEndereco().getNumero());
+		return funcionarioConvertido;
+	}
 
 	// DELETE
 	public void removerLogico(Integer id) {
@@ -135,6 +135,16 @@ public class FuncionarioService {
 
 		if (funcionario != null) {
 			funcionario.setAtivo(false);
+			funcionarioRepository.save(funcionario);
+		}
+	}
+
+	// Ativar Lógico
+	public void ativarLogico(Integer id) {
+		Funcionario funcionario = funcionarioRepository.findById(id).get();
+
+		if (funcionario != null) {
+			funcionario.setAtivo(true);
 			funcionarioRepository.save(funcionario);
 		}
 	}

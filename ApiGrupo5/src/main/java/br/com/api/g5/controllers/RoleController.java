@@ -21,12 +21,17 @@ public class RoleController {
 	RoleService roleService;
 
 	@PostMapping
-	public ResponseEntity<Role> save(@Valid @RequestBody Role role) {
+	public ResponseEntity<String> save(@Valid @RequestBody Role role) {
 		Role newRole = roleService.save(role);
 		if (newRole != null)
-			return new ResponseEntity<>(newRole, HttpStatus.CREATED);
+			return ResponseEntity.status(HttpStatus.CREATED).body("Cargo "+ newRole.getName() + " adicionado!");
 		else
-			return new ResponseEntity<>(newRole, HttpStatus.BAD_REQUEST);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Requisição inválida.");
 	}
-
+	
+//	if (newRole != null)
+//		return new ResponseEntity<>(newRole, HttpStatus.CREATED);
+//	else
+//		return new ResponseEntity<>(newRole, HttpStatus.BAD_REQUEST);
+	
 }
