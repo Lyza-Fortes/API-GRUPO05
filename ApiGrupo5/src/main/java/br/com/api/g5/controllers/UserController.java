@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,7 +77,7 @@ public class UserController {
 	private PasswordEncoder passwordEncoder;
 
 	@PostMapping("/registro")
-	public ResponseEntity<?> cadastro(@RequestParam String email, @RequestBody UserDTO user) {
+	public ResponseEntity<?> cadastro(@RequestParam String email, @Valid @RequestBody UserDTO user) {
 
 		Set<String> strRoles = user.getRoles();
 		Set<Role> roles = new HashSet<>();
@@ -153,7 +153,7 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public Map<String, Object> login(@RequestBody LoginDTO body) {
+	public Map<String, Object> login(@Valid @RequestBody LoginDTO body) {
 		try {
 			UsernamePasswordAuthenticationToken authInputToken = new UsernamePasswordAuthenticationToken(
 					body.getEmail(), body.getPassword());
@@ -174,9 +174,9 @@ public class UserController {
 		}
 	}
 
-	@DeleteMapping("/remover/{id}")
-	public void remover(@PathVariable Integer id) {
-		userService.remover(id);
-	}
+//	@DeleteMapping("/remover/{id}")
+//	public void remover(@PathVariable Integer id) {
+//		userService.remover(id);
+//	}
 
 }

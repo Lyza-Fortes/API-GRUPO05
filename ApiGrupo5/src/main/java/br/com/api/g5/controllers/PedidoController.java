@@ -2,6 +2,8 @@ package br.com.api.g5.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,12 +34,12 @@ public class PedidoController {
 	}
 	
 	@PostMapping("/salvar")
-	public Pedido salvar(@RequestBody Pedido pedido) {
+	public Pedido salvar(@Valid @RequestBody Pedido pedido) {
 		return pedidoService.salvar(pedido);
 	}
 	
 //	@PutMapping("/atualizar/{id}")
-//	public Pedido atualizar(@PathVariable Integer id, @RequestBody Pedido pedido) {
+//	public Pedido atualizar(@PathVariable Integer id, @Valid @RequestBody Pedido pedido) {
 //		return pedidoService.atualizar(id, pedido);
 //	}
 //	

@@ -2,6 +2,8 @@ package br.com.api.g5.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.api.g5.entities.Categoria;
+import br.com.api.g5.dto.CategoriaDTO;
 import br.com.api.g5.services.CategoriaService;
-import br.com.api.g5.services.EmailService;
 
 @RestController
 @RequestMapping("/categoria")
@@ -24,24 +25,24 @@ public class CategoriaController {
 	CategoriaService categoriaService;
 	
 	@GetMapping("/buscar/{id}")
-	public Categoria buscarPorId(@PathVariable Integer id) {
+	public CategoriaDTO buscarPorId(@PathVariable Integer id) {
 		return categoriaService.buscarPorId(id);
 	}
 
 	@GetMapping("/listar")
-	public List<Categoria> listarTodos() {
+	public List<CategoriaDTO> listarTodos() {
 		return categoriaService.listarTodos();
 	}
 	
 	@PostMapping("/salvar")
-	public Categoria salvar(@RequestBody Categoria categoria) {
-		return categoriaService.salvar(categoria);
+	public CategoriaDTO salvar(@Valid @RequestBody CategoriaDTO categoriaDTO) {
+		return categoriaService.salvar(categoriaDTO);
 
 	}
 	
 	@PutMapping("/atualizar/{id}")
-	public Categoria atualizar(@PathVariable Integer id, @RequestBody Categoria categoria) {
-		return categoriaService.atualizar(id, categoria);
+	public CategoriaDTO atualizar(@PathVariable Integer id, @Valid @RequestBody CategoriaDTO categoriaDTO) {
+		return categoriaService.atualizar(id, categoriaDTO);
 	}
 	
 	@DeleteMapping("/remover/{id}")
