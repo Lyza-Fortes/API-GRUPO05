@@ -1,5 +1,7 @@
 package br.com.api.g5.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,7 @@ public class RoleController {
 	RoleService roleService;
 
 	@PostMapping
-	public ResponseEntity<Role> save(@RequestBody Role role) {
+	public ResponseEntity<Role> save(@Valid @RequestBody Role role) {
 		Role newRole = roleService.save(role);
 		if (newRole != null)
 			return new ResponseEntity<>(newRole, HttpStatus.CREATED);

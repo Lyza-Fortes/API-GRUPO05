@@ -6,15 +6,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.api.g5.dto.ClienteAtualizarDTO;
 import br.com.api.g5.dto.ClienteDTO;
 import br.com.api.g5.entities.Cliente;
+import br.com.api.g5.entities.Endereco;
+import br.com.api.g5.entities.User;
 import br.com.api.g5.repositories.ClienteRepository;
+import br.com.api.g5.repositories.EnderecoRepository;
 
 @Service
 public class ClienteService {
 
 	@Autowired
 	ClienteRepository clienteRepository;
+	
+	@Autowired
+	EnderecoService enderecoService;
+	
+	@Autowired
+	EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	UserService userService;
 
 	//GET Id
 	public ClienteDTO buscarPorId(Integer id) {
@@ -34,6 +47,7 @@ public class ClienteService {
 		return infoClientes;
 	}
 	
+	//Conversão DTO
 	public ClienteDTO converterClienteDTO(Cliente cliente) {
 		ClienteDTO clienteConvertido = new ClienteDTO();
 		clienteConvertido.setNome(cliente.getNome());
@@ -59,32 +73,63 @@ public class ClienteService {
 		return clienteRepository.save(cliente);
 	}
 
-	//PUT
-	public Cliente atualizar(Integer id, Cliente cliente) {
-		Cliente registroAntigo = clienteRepository.findById(id).get();
+	// PUT
+		public ClienteAtualizarDTO atualizar(Integer id, ClienteAtualizarDTO clienteDTO) {
 
-		if (cliente.getNomeUsuario() != null) {
-			registroAntigo.setNomeUsuario(cliente.getNomeUsuario());
-		}
-		if (cliente.getEmail() != null) {
-			registroAntigo.setEmail(cliente.getEmail());
-		}
-		if (cliente.getNome() != null) {
-			registroAntigo.setNome(cliente.getNome());
-		}
-		if (cliente.getTelefoneFixo() != null) {
-			registroAntigo.setTelefoneFixo(cliente.getTelefoneFixo());
-		}
-		if (cliente.getCelular() != null) {
-			registroAntigo.setCelular(cliente.getCelular());
-		}
-		if (cliente.getPassword() != null) {
-			registroAntigo.setPassword(cliente.getPassword());
-		}
-		registroAntigo.setId(id);
-		return clienteRepository.save(registroAntigo);
-	}
+			Cliente registroAntigo = clienteRepository.findById(id).get();
 
+			if (clienteDTO.getPassword() != null) {
+				registroAntigo.setPassword(clienteDTO.getPassword());
+			}
+			if (clienteDTO.getNome() != null) {
+				registroAntigo.setNome(clienteDTO.getNome());
+			}
+			if (clienteDTO.getTelefoneFixo() != null) {
+				registroAntigo.setTelefoneFixo(clienteDTO.getTelefoneFixo());
+			}
+			if (clienteDTO.getCelular() != null) {
+				registroAntigo.setCelular(clienteDTO.getCelular());
+			}
+			if (clienteDTO.getEmail() != null) {
+				User user = userService.findByEmail(registroAntigo.getEmail());
+				user.setEmail(clienteDTO.getEmail());
+				registroAntigo.setEmail(clienteDTO.getEmail());
+				userService.save(user);
+			}
+			if (clienteDTO.getCep() != null) {
+				Endereco viaCep = enderecoService.pesquisarEndereco(clienteDTO.getCep());
+		        Endereco enderecoNovo = new Endereco();
+		        enderecoNovo.setBairro(viaCep.getBairro());
+		        enderecoNovo.setCep(clienteDTO.getCep());
+		        enderecoNovo.setComplemento(clienteDTO.getComplemento());
+		        enderecoNovo.setLocalidade(viaCep.getLocalidade());
+		        enderecoNovo.setLogradouro(viaCep.getLogradouro());
+		        enderecoNovo.setNumero(clienteDTO.getNumero());
+		        enderecoNovo.setUf(viaCep.getUf());
+		        enderecoRepository.save(enderecoNovo);
+		        registroAntigo.setEndereco(enderecoNovo);
+			}
+			ClienteAtualizarDTO clienteConvertido = converterClienteAtualizarDTO(registroAntigo);
+			registroAntigo.setId(id);
+			clienteRepository.save(registroAntigo);
+			return clienteConvertido;
+		}
+		
+		// Conversão DTO
+			public ClienteAtualizarDTO converterClienteAtualizarDTO(Cliente cliente) {
+				ClienteAtualizarDTO clienteConvertido = new ClienteAtualizarDTO();
+				clienteConvertido.setNome(cliente.getNome());
+				clienteConvertido.setTelefoneFixo(cliente.getTelefoneFixo());
+				clienteConvertido.setCelular(cliente.getCelular());
+				clienteConvertido.setEmail(cliente.getEmail());
+				clienteConvertido.setPassword(cliente.getPassword());
+				clienteConvertido.setCep(cliente.getEndereco().getCep());
+				clienteConvertido.setComplemento(cliente.getEndereco().getComplemento());
+				clienteConvertido.setNumero(cliente.getEndereco().getNumero());
+				return clienteConvertido;
+			}
+
+	//Deletar Lógico
 	public void removerLogico(Integer id) {
 		Cliente cliente = clienteRepository.findById(id).get();
 

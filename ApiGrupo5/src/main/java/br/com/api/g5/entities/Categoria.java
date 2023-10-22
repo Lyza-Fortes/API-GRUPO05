@@ -17,11 +17,11 @@ public class Categoria {
 	@Column(name="id_categoria")
 	private Integer id;
 
-	@NotNull
+	@NotNull(message="Campo nome de categoria não pode ser nulo")
 	@Column(name = "nome_categoria")
 	private String nome;
 
-	@NotNull
+	@NotNull(message="Campo descrição de categoria não pode ser nulo")
 	@Column(name = "descricao_categoria")
 	private String descricao;
 

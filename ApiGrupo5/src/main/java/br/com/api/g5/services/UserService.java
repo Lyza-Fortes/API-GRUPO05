@@ -14,12 +14,7 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 
-	private EmailService emailService;
-    @Autowired
-    public void setEmailService(EmailService emailService) {
-        this.emailService = emailService;
-    }
-
+	
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email).get();
 	}
@@ -32,10 +27,10 @@ public class UserService {
 		return userRepository.findAll();
 	}
 
-	public void remover(Integer id) {
-		User user = userRepository.findById(id).get();
-		emailService.envioEmailEncerramentoConta(user);
-		userRepository.deleteById(id);
-	}
+//	public void remover(Integer id) {
+//		User user = userRepository.findById(id).get();
+//		emailService.envioEmailEncerramentoConta(user);
+//		userRepository.deleteById(id);
+//	}
 
 }

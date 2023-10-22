@@ -23,7 +23,7 @@ public class Pedido {
 	@Column(name="id_pedido")
 	private Integer id;
 
-	@NotNull
+	@NotNull(message="Campo data de pedido não pode ser nulo")
 	@Column(name = "data_pedido")
 	private LocalDateTime dataPedido;
 	

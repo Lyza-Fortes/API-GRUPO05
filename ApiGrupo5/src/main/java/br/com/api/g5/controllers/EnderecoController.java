@@ -2,6 +2,8 @@ package br.com.api.g5.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,13 +36,13 @@ public class EnderecoController {
 	}
 	
 	@PostMapping("/salvar")
-	public Endereco salvar(@RequestBody EnderecoDto endereco) {
+	public Endereco salvar(@Valid @RequestBody EnderecoDto endereco) {
 		return enderecoService.salvar(endereco);
 
 	}
 	
 	@PutMapping("/atualizar/{id}")
-	public Endereco atualizar(@PathVariable Integer id, @RequestBody Endereco endereco) {
+	public Endereco atualizar(@PathVariable Integer id, @Valid @RequestBody Endereco endereco) {
 		return enderecoService.atualizar(id, endereco);
 	}
 	

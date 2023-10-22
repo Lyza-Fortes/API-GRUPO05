@@ -10,8 +10,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name="tb_funcionario")
@@ -22,34 +26,39 @@ public class Funcionario {
 	@Column(name="id_funcionario")
 	private Integer id;
 	
-	@NotNull
+	@NotNull(message="Campo nome de funcionário não pode ser nulo")
 	@Column(name="nome_funcionario")
 	private String nome;
 	
+	@Pattern(regexp = "\\(\\d{2}\\) \\d{4}-\\d{4}")
 	@Column(name = "telefone_fixo_funcionario")
 	private String telefoneFixo;
 
+	@Pattern(regexp = "\\(\\d{2}\\) \\d{5}-\\d{4}")
 	@Column(name = "celular_funcionario")
 	private String celular;
 	
-	@NotNull
+	@NotNull(message="Campo nome de usuário não pode ser nulo")
 	@Column(name = "nome_usuario_funcionario")
 	private String nomeUsuario;
 	
-	@NotNull
-	@Size(max=11)
+	@NotNull(message="Campo CPF não pode ser nulo")
+	@CPF
+	@Size(max=14)
 	@Column(name="cpf_funcionario")
 	private String cpf;
 	
-	@NotNull
+	@NotNull(message="Campo e-mail não pode ser nulo")
+	@Email
+	@Pattern(regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
 	@Column(name = "email_funcionario")
 	private String email;
 
-	@NotNull
+	@NotNull(message="Campo data de nascimento não pode ser nulo")
 	@Column(name = "data_nascimento_funcionario")
 	private LocalDate dataNascimento;
 	
-	@NotNull
+	@NotNull(message="Campo senha não pode ser nulo")
 	@Size(max=10)
 	@Column(name="password_funcionario")
 	private String password;

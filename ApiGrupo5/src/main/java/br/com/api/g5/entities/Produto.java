@@ -1,14 +1,19 @@
 package br.com.api.g5.entities;
 
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -21,22 +26,22 @@ public class Produto {
 	@Column(name = "id_produto")
 	private Integer id;
 
-	@NotNull
+	@NotNull(message="Campo nome do produto não pode ser nulo")
 	@Column(name = "nome_produto")
 	private String nome;
 
-	@NotNull
+	@NotNull(message="Campo descrição do produto não pode ser nulo")
 	@Column(name = "descricao_produto")
 	private String descricao;
 
-	@NotNull
+	@NotNull(message="Campo data de fabricação não pode ser nulo")
 	@Column(name = "data_fab")
 	private LocalDate dataFab;
 
 	@Column(name = "qtd_estoque")
 	private Integer qtdEstoque;
 
-	@NotNull
+	@NotNull(message="Campo valor unitário não pode ser nulo")
 	@Column(name = "valor_unit")
 	private Double valorUnit;
 
@@ -51,6 +56,16 @@ public class Produto {
 	@JoinColumn(name = "funcionario_id")
 	private Funcionario funcionario;
 
+	@ElementCollection
+    @CollectionTable(
+        name = "pedido_produto",
+        joinColumns = @JoinColumn(name = "produto_id")
+    )
+    @MapKeyJoinColumn(name = "pedido_id")
+	@NotNull(message="É necessário definir uma quantidade para comprar.")
+	@Column(name = "quantidade")
+    private Map<Pedido, Integer> itemQuantidade = new HashMap<>();
+	
 	public Produto() {
 	}
 
