@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.api.g5.dto.ClienteDTO;
 import br.com.api.g5.entities.Cliente;
 import br.com.api.g5.services.ClienteService;
 
@@ -22,12 +23,12 @@ public class ClienteController {
 	ClienteService clienteService;
 	
 	@GetMapping("/buscar/{id}")
-	public Cliente buscarPorId(@PathVariable Integer id) {
+	public ClienteDTO buscarPorId(@PathVariable Integer id) {
 		return clienteService.buscarPorId(id);
 	}
 
 	@GetMapping("/listar")
-	public List<Cliente> listarTodos() {
+	public List<ClienteDTO> listarTodos() {
 		return clienteService.listarTodos();
 	}
 	

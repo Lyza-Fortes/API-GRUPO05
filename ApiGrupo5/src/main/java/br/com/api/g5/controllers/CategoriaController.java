@@ -19,12 +19,6 @@ import br.com.api.g5.services.EmailService;
 @RestController
 @RequestMapping("/categoria")
 public class CategoriaController {
-	
-	private EmailService emailService;
-    @Autowired
-    public void setEmailService(EmailService emailService) {
-        this.emailService = emailService;
-    }
     
 	@Autowired
 	CategoriaService categoriaService;
@@ -36,7 +30,6 @@ public class CategoriaController {
 
 	@GetMapping("/listar")
 	public List<Categoria> listarTodos() {
-		emailService.envioEmailTeste();
 		return categoriaService.listarTodos();
 	}
 	

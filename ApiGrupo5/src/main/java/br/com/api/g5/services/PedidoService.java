@@ -13,7 +13,13 @@ public class PedidoService {
 
 	@Autowired
 	PedidoRepository pedidoRepository;
-	
+
+	private EmailService emailService;
+    @Autowired
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
+
 	//GET Id
 	public Pedido buscarPorId(Integer id) {
 		return pedidoRepository.findById(id).get();
@@ -31,6 +37,8 @@ public class PedidoService {
 
 	//DELETE
 	public void remover(Integer id) {
+		//NAO FOI TESTADO
+		emailService.envioEmailCancelamentoPedido();
 		pedidoRepository.deleteById(id);
 	}
 	

@@ -28,14 +28,14 @@ public class Cliente {
 	@Column(name = "nome_cliente")
 	private String nome;
 
-	@Column(name = "telefone_fixo")
+	@Column(name = "telefone_fixo_cliente")
 	private String telefoneFixo;
 
-	@Column(name = "celular")
+	@Column(name = "celular_cliente")
 	private String celular;
 
 	@NotNull
-	@Column(name = "nome_usuario")
+	@Column(name = "nome_usuario_cliente")
 	private String nomeUsuario;
 
 	@NotNull
@@ -44,22 +44,21 @@ public class Cliente {
 	private String cpf;
 
 	@NotNull
-	@Column(name = "email")
+	@Column(name = "email_cliente")
 	private String email;
 
 	@NotNull
-	@Column(name = "data_nascimento")
+	@Column(name = "data_nascimento_cliente")
 	private LocalDate dataNascimento;
 
 	@NotNull
 	@Size(max=10)
-	@Column(name = "senha_cliente")
-	private String senha;
+	@Column(name = "password_cliente")
+	private String password;
 
-	@NotNull
 	@Column(name = "ativo_cliente")
 	private Boolean ativo = true;
-
+	
 	@OneToOne
 	@JoinColumn(name="endereco_id")
 	private Endereco endereco;
@@ -76,9 +75,11 @@ public class Cliente {
 		super();
 	}
 
-    public Cliente(Integer id, @NotNull String nome, String telefoneFixo, String celular, @NotNull String nomeUsuario,
+	public Cliente(Integer id, @NotNull String nome, String telefoneFixo, String celular, @NotNull String nomeUsuario,
 			@NotNull @Size(max = 11) String cpf, @NotNull String email, @NotNull LocalDate dataNascimento,
-			@NotNull @Size(max = 10) String senha, @NotNull Boolean ativo, Endereco endereco, List<Pedido> pedido) {
+			@NotNull @Size(max = 10) String password, Boolean ativo, Endereco endereco, List<Pedido> pedido,
+			User user) {
+		super();
 		this.id = id;
 		this.nome = nome;
 		this.telefoneFixo = telefoneFixo;
@@ -87,10 +88,11 @@ public class Cliente {
 		this.cpf = cpf;
 		this.email = email;
 		this.dataNascimento = dataNascimento;
-		this.senha = senha;
+		this.password = password;
 		this.ativo = ativo;
 		this.endereco = endereco;
 		this.pedido = pedido;
+		this.user = user;
 	}
 
 	public Integer getId() {
@@ -103,6 +105,22 @@ public class Cliente {
 
 	public String getNome() {
 		return nome;
+	}
+
+	public List<Pedido> getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(List<Pedido> pedido) {
+		this.pedido = pedido;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public void setNome(String nome) {
@@ -165,12 +183,12 @@ public class Cliente {
 		this.ativo = ativo;
 	}
 
-	public String getSenha() {
-		return senha;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public Endereco getEndereco() {
@@ -181,11 +199,12 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 
-    @Override
-    public String toString() {
-        return "Cliente [id=" + id + ", nome=" + nome + ", telefoneFixo=" + telefoneFixo + ", celular=" + celular
-                + ", nomeUsuario=" + nomeUsuario + ", cpf=" + cpf + ", email=" + email + ", dataNascimento="
-                + dataNascimento + ", senha=" + senha + ", ativo=" + ativo + ", endereco=" + endereco + ", pedido="
-                + pedido + "]";
-    }
+	@Override
+	public String toString() {
+		return "Cliente [id=" + id + ", nome=" + nome + ", telefoneFixo=" + telefoneFixo + ", celular=" + celular
+				+ ", nomeUsuario=" + nomeUsuario + ", cpf=" + cpf + ", email=" + email + ", dataNascimento="
+				+ dataNascimento + ", password=" + password + ", ativo=" + ativo + ", endereco=" + endereco
+				+ ", pedido=" + pedido + ", user=" + user + "]";
+	}
+
 }
