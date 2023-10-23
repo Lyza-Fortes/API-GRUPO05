@@ -64,7 +64,7 @@ public class PedidoService {
 		
 		PedidoDTO pedidoConvertido = conversores.converterPedidoDTO(salvarPedido);
 		pedidoRepository.save(salvarPedido);
-
+		emailService.envioEmailConfirmacaoPedido(null, pedidoDTO);
 		return pedidoConvertido;
 	}
 

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.api.g5.dto.ClienteDTO;
 import br.com.api.g5.dto.FuncionarioDTO;
+import br.com.api.g5.dto.PedidoDTO;
 import br.com.api.g5.dto.UserDTO;
 import br.com.api.g5.entities.User;
 
@@ -207,6 +208,76 @@ public class EmailService {
 
 	}
 
+	public void envioEmailConfirmacaoPedido(User user, PedidoDTO pedidoDTO) {
+		MimeMessage mensagemCadastro = emailSender.createMimeMessage();
+
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(mensagemCadastro, true);
+			helper.setFrom("grupo5api20232@gmail.com");
+			helper.setTo("arthurmonteiro20172018@gmail.com");
+			helper.setSubject("Confirmação de Pedido");
+
+			StringBuilder builder = new StringBuilder();
+			builder.append("<html>\r\n");
+			builder.append("	<body>\r\n");
+			builder.append("		<div align=\"center\">\r\n");
+			builder.append("        <img src=\"cid:logo7\">\r\n");
+			builder.append("			<h1>Confirmação de Pedido</h1>\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<br/>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			Olá \r\n");
+			builder.append(user.getNomeUsuario());
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Agradecemos por escolher a GRUPO 5 ENTERPRISE! Estamos felizes em confirmar o seu pedido.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Detalhes do seu pedido:\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Número do Pedido: {numero_pedido}\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			Data do Pedido: \r\n");
+			builder.append(pedidoDTO.getDataPedido());
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Seu pedido está em processamento e nossa equipe está trabalhando para garantir que tudo seja preparado e entregue com a maior qualidade. Você será notificado assim que seu pedido for despachado ou estiver disponível para retirada, dependendo da opção escolhida.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Para acompanhar o status do seu pedido ou se tiver alguma dúvida, não hesite em entrar em contato conosco. Nossa equipe de suporte estará à disposição para ajudá-lo.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Agradecemos por confiar na GRUPO 5 ENTERPRISE. Estamos ansiosos para atendê-lo e proporcionar a melhor experiência possível.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Atenciosamente,\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			A Equipe da GRUPO 5 ENTERPRISE\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("	</body>\r\n");
+			builder.append("</html>\r\n");
+			
+
+			helper.setText(builder.toString(), true);
+			ClassPathResource img = new ClassPathResource("img/logo_grupo_5.png");
+			helper.addInline("logo7", img);
+			emailSender.send(mensagemCadastro);
+
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+
+	}
 	//NAO FOI TESTADO
 	public void envioEmailCancelamentoPedido() {
 		MimeMessage mensagemCadastro = emailSender.createMimeMessage();
