@@ -11,6 +11,7 @@ import br.com.api.g5.dto.ProdutoAtualizarDTO;
 import br.com.api.g5.dto.ProdutoDTO;
 import br.com.api.g5.entities.Pedido;
 import br.com.api.g5.entities.Produto;
+import br.com.api.g5.mappers.Conversores;
 import br.com.api.g5.repositories.ProdutoRepository;
 
 @Service
@@ -24,12 +25,15 @@ public class ProdutoService {
 
 	@Autowired
 	ProdutoRepository produtoRepository;
+	
+	@Autowired
+	Conversores conversores;
 
 	// GET id
 	public ProdutoDTO buscarPorId(Integer id) {
 		ProdutoDTO infoProduto = new ProdutoDTO();
 		Produto produto = produtoRepository.findById(id).get();
-		infoProduto = converterProdutoDTO(produto);
+		infoProduto = conversores.converterProdutoDTO(produto);
 		return infoProduto;
 	}
 
@@ -53,7 +57,7 @@ public class ProdutoService {
 		List<ProdutoDTO> infoProdutos = new ArrayList<>();
 		List<Produto> produtos = produtoRepository.findAll();
 		for (Produto produto : produtos) {
-			infoProdutos.add(converterProdutoDTO(produto));
+			infoProdutos.add(conversores.converterProdutoDTO(produto));
 		}
 		return infoProdutos;
 	}
@@ -63,19 +67,6 @@ public class ProdutoService {
 		Produto p = produtoRepository.findById(pedido.getId()).get();
 
 		return p.getId();
-	}
-
-	public ProdutoDTO converterProdutoDTO(Produto produto) {
-		ProdutoDTO produtoConvertido = new ProdutoDTO();
-		produtoConvertido.setNome(produto.getNome());
-		produtoConvertido.setDescricao(produto.getDescricao());
-		produtoConvertido.setDataFab(produto.getDataFab());
-		produtoConvertido.setQtdEstoque(produto.getQtdEstoque());
-		produtoConvertido.setValorUnit(produto.getValorUnit());
-		produtoConvertido.setCategoriaDTO(categoriaService.buscarPorId(produto.getCategoria().getId()));
-		produtoConvertido
-				.setFuncionarioResponseDTO(funcionarioService.buscarFuncPorId(produto.getFuncionario().getId()));
-		return produtoConvertido;
 	}
 
 	// POST
@@ -89,7 +80,7 @@ public class ProdutoService {
 		salvarProduto.setCategoria(categoriaService.buscarPorNome(produtoDTO.getCategoriaDTO()));
 		salvarProduto.setFuncionario(funcionarioService.buscarPorNome(produtoDTO.getFuncionarioResponseDTO()));
 
-		ProdutoDTO categoriaConvertida = converterProdutoDTO(salvarProduto);
+		ProdutoDTO categoriaConvertida = conversores.converterProdutoDTO(salvarProduto);
 		produtoRepository.save(salvarProduto);
 
 		return categoriaConvertida;

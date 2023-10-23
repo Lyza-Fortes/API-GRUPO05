@@ -12,6 +12,7 @@ import br.com.api.g5.dto.FuncionarioResponseDTO;
 import br.com.api.g5.entities.Endereco;
 import br.com.api.g5.entities.Funcionario;
 import br.com.api.g5.entities.User;
+import br.com.api.g5.mappers.Conversores;
 import br.com.api.g5.repositories.EnderecoRepository;
 import br.com.api.g5.repositories.FuncionarioRepository;
 
@@ -29,6 +30,9 @@ public class FuncionarioService {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	Conversores conversores;
 
 	// GET Id
 	public FuncionarioDTO buscarPorId(Integer id) {
@@ -41,7 +45,7 @@ public class FuncionarioService {
 	public FuncionarioResponseDTO buscarFuncPorId(Integer id) {
 		FuncionarioResponseDTO infoFuncionario = new FuncionarioResponseDTO();
 		Funcionario funcionario = funcionarioRepository.findById(id).get();
-		infoFuncionario = converterFuncionarioResponseDTO(funcionario);
+		infoFuncionario = conversores.converterFuncionarioResponseDTO(funcionario);
 		return infoFuncionario;
 	}
 	
@@ -57,15 +61,6 @@ public class FuncionarioService {
 			infoFuncionarios.add(converterFuncionarioDTO(funcionario));
 		}
 		return infoFuncionarios;
-	}
-
-	// Conversão DTO
-	public FuncionarioResponseDTO converterFuncionarioResponseDTO(Funcionario funcionario) {
-		FuncionarioResponseDTO funcionarioConvertido = new FuncionarioResponseDTO();
-		funcionarioConvertido.setNome(funcionario.getNome());
-		funcionarioConvertido.setNomeUsuario(funcionario.getNomeUsuario());
-		funcionarioConvertido.setEmail(funcionario.getEmail());
-		return funcionarioConvertido;
 	}
 	
 	public FuncionarioDTO converterFuncionarioDTO(Funcionario funcionario) {
@@ -129,23 +124,9 @@ public class FuncionarioService {
 			enderecoRepository.save(enderecoNovo);
 			registroAntigo.setEndereco(enderecoNovo);
 		}
-		FuncionarioAtualizarDTO funcionarioConvertido = converterFuncionarioAtualizarDTO(registroAntigo);
+		FuncionarioAtualizarDTO funcionarioConvertido = conversores.converterFuncionarioAtualizarDTO(registroAntigo);
 		registroAntigo.setId(id);
 		funcionarioRepository.save(registroAntigo);
-		return funcionarioConvertido;
-	}
-
-	// Conversão DTO
-	public FuncionarioAtualizarDTO converterFuncionarioAtualizarDTO(Funcionario funcionario) {
-		FuncionarioAtualizarDTO funcionarioConvertido = new FuncionarioAtualizarDTO();
-		funcionarioConvertido.setNome(funcionario.getNome());
-		funcionarioConvertido.setTelefoneFixo(funcionario.getTelefoneFixo());
-		funcionarioConvertido.setCelular(funcionario.getCelular());
-		funcionarioConvertido.setEmail(funcionario.getEmail());
-		funcionarioConvertido.setPassword(funcionario.getPassword());
-		funcionarioConvertido.setCep(funcionario.getEndereco().getCep());
-		funcionarioConvertido.setComplemento(funcionario.getEndereco().getComplemento());
-		funcionarioConvertido.setNumero(funcionario.getEndereco().getNumero());
 		return funcionarioConvertido;
 	}
 

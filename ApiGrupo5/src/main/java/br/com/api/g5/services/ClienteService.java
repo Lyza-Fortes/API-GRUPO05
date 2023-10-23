@@ -11,6 +11,7 @@ import br.com.api.g5.dto.ClienteDTO;
 import br.com.api.g5.entities.Cliente;
 import br.com.api.g5.entities.Endereco;
 import br.com.api.g5.entities.User;
+import br.com.api.g5.mappers.Conversores;
 import br.com.api.g5.repositories.ClienteRepository;
 import br.com.api.g5.repositories.EnderecoRepository;
 
@@ -28,12 +29,15 @@ public class ClienteService {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	Conversores conversores;
 
 	// GET Id
 	public ClienteDTO buscarPorId(Integer id) {
 		ClienteDTO infoCliente = new ClienteDTO();
 		Cliente cliente = clienteRepository.findById(id).get();
-		infoCliente = converterClienteDTO(cliente);
+		infoCliente = conversores.converterClienteDTO(cliente);
 		return infoCliente;
 	}
 
@@ -42,30 +46,9 @@ public class ClienteService {
 		List<ClienteDTO> infoClientes = new ArrayList<>();
 		List<Cliente> clientes = clienteRepository.findAll();
 		for (Cliente cliente : clientes) {
-			infoClientes.add(converterClienteDTO(cliente));
+			infoClientes.add(conversores.converterClienteDTO(cliente));
 		}
 		return infoClientes;
-	}
-
-	// Conversão DTO
-	public ClienteDTO converterClienteDTO(Cliente cliente) {
-		ClienteDTO clienteConvertido = new ClienteDTO();
-		clienteConvertido.setNome(cliente.getNome());
-		clienteConvertido.setTelefoneFixo(cliente.getTelefoneFixo());
-		clienteConvertido.setCelular(cliente.getCelular());
-		clienteConvertido.setNomeUsuario(cliente.getNomeUsuario());
-		clienteConvertido.setCpf(cliente.getCpf());
-		clienteConvertido.setEmail(cliente.getEmail());
-		clienteConvertido.setDataNascimento(cliente.getDataNascimento());
-		clienteConvertido.setPassword(cliente.getPassword());
-		clienteConvertido.setBairro(cliente.getEndereco().getBairro());
-		clienteConvertido.setCep(cliente.getEndereco().getCep());
-		clienteConvertido.setComplemento(cliente.getEndereco().getComplemento());
-		clienteConvertido.setLocalidade(cliente.getEndereco().getLocalidade());
-		clienteConvertido.setLogradouro(cliente.getEndereco().getLogradouro());
-		clienteConvertido.setNumero(cliente.getEndereco().getNumero());
-		clienteConvertido.setUf(cliente.getEndereco().getUf());
-		return clienteConvertido;
 	}
 
 	// POST
@@ -109,23 +92,9 @@ public class ClienteService {
 			enderecoRepository.save(enderecoNovo);
 			registroAntigo.setEndereco(enderecoNovo);
 		}
-		ClienteAtualizarDTO clienteConvertido = converterClienteAtualizarDTO(registroAntigo);
+		ClienteAtualizarDTO clienteConvertido = conversores.converterClienteAtualizarDTO(registroAntigo);
 		registroAntigo.setId(id);
 		clienteRepository.save(registroAntigo);
-		return clienteConvertido;
-	}
-
-	// Conversão DTO
-	public ClienteAtualizarDTO converterClienteAtualizarDTO(Cliente cliente) {
-		ClienteAtualizarDTO clienteConvertido = new ClienteAtualizarDTO();
-		clienteConvertido.setNome(cliente.getNome());
-		clienteConvertido.setTelefoneFixo(cliente.getTelefoneFixo());
-		clienteConvertido.setCelular(cliente.getCelular());
-		clienteConvertido.setEmail(cliente.getEmail());
-		clienteConvertido.setPassword(cliente.getPassword());
-		clienteConvertido.setCep(cliente.getEndereco().getCep());
-		clienteConvertido.setComplemento(cliente.getEndereco().getComplemento());
-		clienteConvertido.setNumero(cliente.getEndereco().getNumero());
 		return clienteConvertido;
 	}
 
