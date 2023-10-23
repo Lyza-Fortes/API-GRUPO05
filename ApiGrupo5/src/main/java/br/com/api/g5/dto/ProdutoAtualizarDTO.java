@@ -2,8 +2,8 @@ package br.com.api.g5.dto;
 
 import java.time.LocalDate;
 
-public class ProdutoDTO {
-	
+public class ProdutoAtualizarDTO {
+
 	private String nome;
 	private String descricao;
 	private LocalDate dataFab;
@@ -12,7 +12,7 @@ public class ProdutoDTO {
 	private CategoriaDTO categoriaDTO;
 	private FuncionarioDTO funcionarioDTO;
 
-	public ProdutoDTO(String nome, String descricao, LocalDate dataFab, Integer qtdEstoque, Double valorUnit,
+    public ProdutoAtualizarDTO(String nome, String descricao, LocalDate dataFab, Integer qtdEstoque, Double valorUnit,
 			CategoriaDTO categoriaDTO, FuncionarioDTO funcionarioDTO) {
 		super();
 		this.nome = nome;
@@ -24,9 +24,8 @@ public class ProdutoDTO {
 		this.funcionarioDTO = funcionarioDTO;
 	}
 
-	public ProdutoDTO() {
+	public ProdutoAtualizarDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getNome() {
@@ -84,5 +83,5 @@ public class ProdutoDTO {
 	public void setCategoriaDTO(CategoriaDTO categoriaDTO) {
 		this.categoriaDTO = categoriaDTO;
 	}
-		
+
 }

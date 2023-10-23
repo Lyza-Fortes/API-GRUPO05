@@ -171,9 +171,9 @@ public class UserController {
 			usuarioResumido.setRoles(user.getRoles());
 			String token = jwtUtil.generateTokenWithUserData(usuarioResumido);
 
-//			MessageResponseDTO retornoLogin = new MessageResponseDTO("Login efetuado com sucesso! Por favor copie o seu Token: Bearer "
-//					+ token);
-//			return ResponseEntity.ok().body(retornoLogin);
+			//MessageResponseDTO retornoLogin = new MessageResponseDTO("Login efetuado com sucesso! Por favor copie o seu Token: Bearer "
+				//	+ token);
+			//return ResponseEntity.ok().body(retornoLogin);
 			
 			return ResponseEntity.status(HttpStatus.OK).body("Login efetuado com sucesso!\n\nToken:"+token);
 		} catch (AuthenticationException authExc) {
