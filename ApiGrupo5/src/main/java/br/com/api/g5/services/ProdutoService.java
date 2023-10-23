@@ -19,7 +19,7 @@ public class ProdutoService {
 
 	@Autowired
 	FuncionarioService funcionarioService;
-	
+
 	@Autowired
 	ProdutoRepository produtoRepository;
 
@@ -31,7 +31,7 @@ public class ProdutoService {
 		return infoProduto;
 	}
 
-	//GET Listar
+	// GET Listar
 	public List<ProdutoDTO> listarTodos() {
 		List<ProdutoDTO> infoProdutos = new ArrayList<>();
 		List<Produto> produtos = produtoRepository.findAll();
@@ -49,7 +49,8 @@ public class ProdutoService {
 		produtoConvertido.setQtdEstoque(produto.getQtdEstoque());
 		produtoConvertido.setValorUnit(produto.getValorUnit());
 		produtoConvertido.setCategoriaDTO(categoriaService.buscarPorId(produto.getCategoria().getId()));
-		produtoConvertido.setFuncionarioDTO(funcionarioService.buscarPorId(produto.getFuncionario().getId()));
+		produtoConvertido
+				.setFuncionarioResponseDTO(funcionarioService.buscarFuncPorId(produto.getFuncionario().getId()));
 		return produtoConvertido;
 	}
 
@@ -61,10 +62,12 @@ public class ProdutoService {
 		salvarProduto.setDataFab(produtoDTO.getDataFab());
 		salvarProduto.setQtdEstoque(produtoDTO.getQtdEstoque());
 		salvarProduto.setValorUnit(produtoDTO.getValorUnit());
+		salvarProduto.setCategoria(categoriaService.buscarPorNome(produtoDTO.getCategoriaDTO()));
+		salvarProduto.setFuncionario(funcionarioService.buscarPorNome(produtoDTO.getFuncionarioResponseDTO()));
 
-		produtoRepository.save(salvarProduto);
 		ProdutoDTO categoriaConvertida = converterProdutoDTO(salvarProduto);
-		
+		produtoRepository.save(salvarProduto);
+
 		return categoriaConvertida;
 	}
 
@@ -84,12 +87,12 @@ public class ProdutoService {
 		if (produtoAtualizarDTO.getNome() != null) {
 			registroAntigo.setNome(produtoAtualizarDTO.getNome());
 		}
-		//if (produtoAtualizarDTO.getFuncionarioDTO() != null) {
-		//	registroAntigo.setFuncionario(produtoAtualizarDTO.getFuncionarioDTO());
-		//}
-		//if (produtoAtualizarDTO.getCategoriaDTO() != null) {
-		//	registroAntigo.setCategoria(produtoAtualizarDTO.getCategoriaDTO());
-		//}
+//		if (produtoAtualizarDTO.getFuncionarioDTO() != null) {
+//			registroAntigo.setFuncionario(produtoAtualizarDTO.getFuncionarioDTO());
+//		}
+//		if (produtoAtualizarDTO.getCategoriaDTO() != null) {
+//			registroAntigo.setCategoria(produtoAtualizarDTO.getCategoriaDTO());
+//		}
 
 		ProdutoAtualizarDTO produtoConvertido = converterProdutoAtualizarDTO(registroAntigo);
 		registroAntigo.setId(id);

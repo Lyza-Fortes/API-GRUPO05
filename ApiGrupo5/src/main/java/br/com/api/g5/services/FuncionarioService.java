@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.api.g5.dto.FuncionarioAtualizarDTO;
 import br.com.api.g5.dto.FuncionarioDTO;
+import br.com.api.g5.dto.FuncionarioResponseDTO;
 import br.com.api.g5.entities.Endereco;
 import br.com.api.g5.entities.Funcionario;
 import br.com.api.g5.entities.User;
@@ -36,6 +37,17 @@ public class FuncionarioService {
 		infoFuncionario = converterFuncionarioDTO(funcionario);
 		return infoFuncionario;
 	}
+	
+	public FuncionarioResponseDTO buscarFuncPorId(Integer id) {
+		FuncionarioResponseDTO infoFuncionario = new FuncionarioResponseDTO();
+		Funcionario funcionario = funcionarioRepository.findById(id).get();
+		infoFuncionario = converterFuncionarioResponseDTO(funcionario);
+		return infoFuncionario;
+	}
+	
+	public Funcionario buscarPorNome(FuncionarioResponseDTO nome) {
+		return funcionarioRepository.findByNome(nome.getNome()).get();
+	}
 
 	// GET Listar
 	public List<FuncionarioDTO> listarTodos() {
@@ -48,6 +60,14 @@ public class FuncionarioService {
 	}
 
 	// Conversão DTO
+	public FuncionarioResponseDTO converterFuncionarioResponseDTO(Funcionario funcionario) {
+		FuncionarioResponseDTO funcionarioConvertido = new FuncionarioResponseDTO();
+		funcionarioConvertido.setNome(funcionario.getNome());
+		funcionarioConvertido.setNomeUsuario(funcionario.getNomeUsuario());
+		funcionarioConvertido.setEmail(funcionario.getEmail());
+		return funcionarioConvertido;
+	}
+	
 	public FuncionarioDTO converterFuncionarioDTO(Funcionario funcionario) {
 		FuncionarioDTO funcionarioConvertido = new FuncionarioDTO();
 		funcionarioConvertido.setNome(funcionario.getNome());

@@ -10,10 +10,10 @@ public class ProdutoDTO {
 	private Integer qtdEstoque;
 	private Double valorUnit;
 	private CategoriaDTO categoriaDTO;
-	private FuncionarioDTO funcionarioDTO;
+	private FuncionarioResponseDTO funcionarioResponseDTO;
 
 	public ProdutoDTO(String nome, String descricao, LocalDate dataFab, Integer qtdEstoque, Double valorUnit,
-			CategoriaDTO categoriaDTO, FuncionarioDTO funcionarioDTO) {
+			CategoriaDTO categoriaDTO, FuncionarioResponseDTO funcionarioResponseDTO) {
 		super();
 		this.nome = nome;
 		this.descricao = descricao;
@@ -21,7 +21,7 @@ public class ProdutoDTO {
 		this.qtdEstoque = qtdEstoque;
 		this.valorUnit = valorUnit;
 		this.categoriaDTO = categoriaDTO;
-		this.funcionarioDTO = funcionarioDTO;
+		this.funcionarioResponseDTO = funcionarioResponseDTO;
 	}
 
 	public ProdutoDTO() {
@@ -37,12 +37,12 @@ public class ProdutoDTO {
 		this.nome = nome;
 	}
 
-	public FuncionarioDTO getFuncionarioDTO() {
-		return funcionarioDTO;
+	public FuncionarioResponseDTO getFuncionarioResponseDTO() {
+		return funcionarioResponseDTO;
 	}
 
-	public void setFuncionarioDTO(FuncionarioDTO funcionarioDTO) {
-		this.funcionarioDTO = funcionarioDTO;
+	public void setFuncionarioResponseDTO(FuncionarioResponseDTO funcionarioResponseDTO) {
+		this.funcionarioResponseDTO = funcionarioResponseDTO;
 	}
 
 	public String getDescricao() {

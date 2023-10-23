@@ -23,6 +23,10 @@ public class CategoriaService {
 		infoCategoria = converterCategoriaDTO(categoria);
 		return infoCategoria;
 	}
+	
+	public Categoria buscarPorNome(CategoriaDTO nome) {
+		return categoriaRepository.findByNome(nome.getNome()).get();
+	}
 
 	//GET Listar
 	public List<CategoriaDTO> listarTodos() {
@@ -74,6 +78,7 @@ public class CategoriaService {
 		categoriaRepository.save(registroAntigo);
 		return categoriaConvertida;
 	}
+
 }
 
 
