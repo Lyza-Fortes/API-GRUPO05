@@ -78,7 +78,6 @@ public class CategoriaService {
 		categoriaRepository.save(registroAntigo);
 		return categoriaConvertida;
 	}
-
 }
 
 

@@ -1,7 +1,9 @@
 package br.com.api.g5.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CollectionTable;
@@ -26,22 +28,22 @@ public class Produto {
 	@Column(name = "id_produto")
 	private Integer id;
 
-	@NotNull(message="Campo nome do produto não pode ser nulo")
+	@NotNull(message = "Campo nome do produto não pode ser nulo")
 	@Column(name = "nome_produto")
 	private String nome;
 
-	@NotNull(message="Campo descrição do produto não pode ser nulo")
+	@NotNull(message = "Campo descrição do produto não pode ser nulo")
 	@Column(name = "descricao_produto")
 	private String descricao;
 
-	@NotNull(message="Campo data de fabricação não pode ser nulo")
+	@NotNull(message = "Campo data de fabricação não pode ser nulo")
 	@Column(name = "data_fab")
 	private LocalDate dataFab;
 
 	@Column(name = "qtd_estoque")
 	private Integer qtdEstoque;
 
-	@NotNull(message="Campo valor unitário não pode ser nulo")
+	@NotNull(message = "Campo valor unitário não pode ser nulo")
 	@Column(name = "valor_unit")
 	private Double valorUnit;
 
@@ -56,30 +58,38 @@ public class Produto {
 	@JoinColumn(name = "funcionario_id")
 	private Funcionario funcionario;
 
-	@ElementCollection
-    @CollectionTable(
-        name = "pedido_produto",
-        joinColumns = @JoinColumn(name = "produto_id")
-    )
-    @MapKeyJoinColumn(name = "pedido_id")
-	@NotNull(message="É necessário definir uma quantidade para comprar.")
-	@Column(name = "quantidade")
-    private Map<Pedido, Integer> itemQuantidade = new HashMap<>();
-	
+	// @ElementCollection
+	// @CollectionTable(
+	// name = "pedido_produto",
+	// joinColumns = @JoinColumn(name = "produto_id")
+	// )
+	// @MapKeyJoinColumn(name = "pedido_id")
+	// @NotNull(message="É necessário definir uma quantidade para comprar.")
+	// @Column(name = "quantidade")
+	// private List<Integer> itemQuantidade;
+
 	public Produto() {
 	}
 
-	public Produto(Integer id, @NotNull String nome, @NotNull String descricao, @NotNull LocalDate dataFab,
-			Integer qtdEstoque, @NotNull Double valorUnit) {
-		this.id = id;
-		this.nome = nome;
-		this.descricao = descricao;
-		this.dataFab = dataFab;
-		this.qtdEstoque = qtdEstoque;
-		this.valorUnit = valorUnit;
-	}
+	public Produto(Integer id, @NotNull(message = "Campo nome do produto não pode ser nulo") String nome,
+            @NotNull(message = "Campo descrição do produto não pode ser nulo") String descricao,
+            @NotNull(message = "Campo data de fabricação não pode ser nulo") LocalDate dataFab, Integer qtdEstoque,
+            @NotNull(message = "Campo valor unitário não pode ser nulo") Double valorUnit, Boolean ativo,
+            Categoria categoria, Funcionario funcionario,
+            @NotNull(message = "É necessário definir uma quantidade para comprar.") List<Integer> itemQuantidade) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.dataFab = dataFab;
+        this.qtdEstoque = qtdEstoque;
+        this.valorUnit = valorUnit;
+        this.ativo = ativo;
+        this.categoria = categoria;
+        this.funcionario = funcionario;
+        // this.itemQuantidade = itemQuantidade;
+    }
 
-	public Integer getId() {
+    public Integer getId() {
 		return id;
 	}
 
@@ -150,6 +160,14 @@ public class Produto {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
+
+	// public List<Integer> getItemQuantidade() {
+	// 	return itemQuantidade;
+	// }
+
+	// public void setItemQuantidade(List<Integer> itemQuantidade) {
+	// 	this.itemQuantidade = itemQuantidade;
+	// }
 
 	@Override
 	public String toString() {

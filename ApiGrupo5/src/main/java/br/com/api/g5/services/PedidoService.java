@@ -1,18 +1,32 @@
 package br.com.api.g5.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.api.g5.dto.CategoriaDTO;
+import br.com.api.g5.dto.PedidoDTO;
+import br.com.api.g5.dto.PedidoResponseDTO;
+import br.com.api.g5.dto.ProdutoDTO;
+import br.com.api.g5.entities.Categoria;
 import br.com.api.g5.entities.Pedido;
+import br.com.api.g5.entities.Produto;
 import br.com.api.g5.repositories.PedidoRepository;
+import br.com.api.g5.repositories.ProdutoRepository;
 
 @Service
 public class PedidoService {
 
 	@Autowired
 	PedidoRepository pedidoRepository;
+
+	@Autowired
+	ProdutoService produtoService;
+
+	@Autowired
+	ProdutoRepository produtoRepository;
 
 	private EmailService emailService;
     @Autowired
@@ -21,36 +35,65 @@ public class PedidoService {
     }
 
 	//GET Id
-	public Pedido buscarPorId(Integer id) {
-		return pedidoRepository.findById(id).get();
+	public PedidoDTO buscarPorId(Integer id) {
+		PedidoDTO infoPedido = new PedidoDTO();
+		Pedido pedido = pedidoRepository.findById(id).get();
+		infoPedido = converterPedidoDTO(pedido);
+		return infoPedido;
 	}
 
 	//GET Listar
-	public List<Pedido> listarTodos() {
-		return pedidoRepository.findAll();
+	public List<PedidoResponseDTO> listarTodos() {
+		List<PedidoResponseDTO> infoPedidos = new ArrayList<>();
+		List<Pedido> pedidos = pedidoRepository.findAll();
+		for(Pedido pedido : pedidos) {
+			infoPedidos.add(converterPedidoResponseDTO(pedido));
+		}
+		return infoPedidos;
 	}
-	
+
+	//Conversão DTO
+	public PedidoDTO converterPedidoDTO(Pedido pedido) {
+		PedidoDTO pedidoDTOConvertido = new PedidoDTO();
+		pedidoDTOConvertido.setItemQuantidade(pedido.getItemQuantidade());
+		pedidoDTOConvertido.setIdProdutos(produtoService.buscarIdPorObjeto(pedido));
+		return pedidoDTOConvertido;
+	}
+
+	//Conversão Response DTO
+	public PedidoResponseDTO converterPedidoResponseDTO(Pedido pedido) {
+		PedidoResponseDTO pedidoResponseConvertido = new PedidoResponseDTO();
+		return pedidoResponseConvertido;
+	}
+
 	//POST
-	public Pedido salvar(Pedido pedido) {
-		return pedidoRepository.save(pedido);
+	public PedidoDTO salvar(PedidoDTO pedidoDTO) {
+		Pedido salvarPedido = new Pedido();
+		salvarPedido.setItemQuantidade(pedidoDTO.getItemQuantidade());
+		salvarPedido.setProdutos(produtoService.buscarPorIdLista(pedidoDTO.getIdProdutos()));
+		salvarPedido.setDataPedido(pedidoDTO.getDataPedido());
+		ProdutoDTO produtoDTO = produtoService.buscarPorId(pedidoDTO.getIdProdutos());
+		salvarPedido.setValorTotal(produtoService.buscarValorPorId(produtoDTO, pedidoDTO));
+		
+		PedidoDTO pedidoConvertido = converterPedidoDTO(salvarPedido);
+		pedidoRepository.save(salvarPedido);
+
+		return pedidoConvertido;
 	}
 
 	//DELETE
 	public void remover(Integer id) {
-		//NAO FOI TESTADO
-		emailService.envioEmailCancelamentoPedido();
 		pedidoRepository.deleteById(id);
 	}
 	
 	//PUT
-	public Pedido atualizar(Integer id, Pedido pedido) {
-		Pedido registroAntigo = buscarPorId(id);
+	public PedidoDTO atualizar(Integer id, PedidoDTO pedidoDTO) {
+						
+		Pedido registroAntigo = pedidoRepository.findById(id).get();
 
-		if (pedido.getProdutos() != null) {
-			registroAntigo.setProdutos(pedido.getProdutos());
-		}
+		PedidoDTO pedidoConvertido = converterPedidoDTO(registroAntigo);
 		registroAntigo.setId(id);
-		return pedidoRepository.save(registroAntigo);
+		pedidoRepository.save(registroAntigo);
+		return pedidoConvertido;
 	}
-
 }

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.api.g5.dto.PedidoDTO;
+import br.com.api.g5.dto.PedidoResponseDTO;
 import br.com.api.g5.entities.Pedido;
 import br.com.api.g5.services.PedidoService;
 
@@ -24,18 +26,18 @@ public class PedidoController {
 	PedidoService pedidoService;
 	
 	@GetMapping("/buscar/{id}")
-	public Pedido buscarPorId(@PathVariable Integer id) {
+	public PedidoDTO buscarPorId(@PathVariable Integer id) {
 		return pedidoService.buscarPorId(id);
 	}
 
 	@GetMapping("/listar")
-	public List<Pedido> listarTodos() {
+	public List<PedidoResponseDTO> listarTodos() {
 		return pedidoService.listarTodos();
 	}
 	
 	@PostMapping("/salvar")
-	public Pedido salvar(@Valid @RequestBody Pedido pedido) {
-		return pedidoService.salvar(pedido);
+	public PedidoDTO salvar(@Valid @RequestBody PedidoDTO pedidoDTO) {
+		return pedidoService.salvar(pedidoDTO);
 	}
 	
 //	@PutMapping("/atualizar/{id}")
