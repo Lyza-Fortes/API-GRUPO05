@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.api.g5.entities.Produto;
+import br.com.api.g5.dto.ProdutoAtualizarDTO;
+import br.com.api.g5.dto.ProdutoDTO;
 import br.com.api.g5.services.ProdutoService;
 
 @RestController
@@ -24,24 +25,24 @@ public class ProdutoController {
 	ProdutoService produtoService;
 	
 	@GetMapping("/buscar/{id}")
-	public Produto buscarPorId(@PathVariable Integer id) {
+	public ProdutoDTO buscarPorId(@PathVariable Integer id) {
 		return produtoService.buscarPorId(id);
 	}
 
 	@GetMapping("/listar")
-	public List<Produto> listarTodos() {
+	public List<ProdutoDTO> listarTodos() {
 		return produtoService.listarTodos();
 	}
 	
 	@PostMapping("/salvar")
-	public Produto salvar(@Valid @RequestBody Produto produto) {
-		return produtoService.salvar(produto);
+	public ProdutoDTO salvar(@Valid @RequestBody ProdutoDTO produtoDTO) {
+		return produtoService.salvar(produtoDTO);
 
 	}
 	
 	@PutMapping("/atualizar/{id}")
-	public Produto atualizar(@PathVariable Integer id, @Valid @RequestBody Produto produto) {
-		return produtoService.atualizar(id, produto);
+	public ProdutoAtualizarDTO atualizar(@PathVariable Integer id, @Valid @RequestBody ProdutoAtualizarDTO produtoDTO) {
+		return produtoService.atualizar(id, produtoDTO);
 	}
 	
 	@DeleteMapping("/remover/{id}")

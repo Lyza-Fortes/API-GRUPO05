@@ -2,18 +2,18 @@ package br.com.api.g5.dto;
 
 import java.time.LocalDate;
 
-public class ProdutoDTO {
-	
+public class ProdutoAtualizarDTO {
+
 	private String nome;
 	private String descricao;
 	private LocalDate dataFab;
 	private Integer qtdEstoque;
 	private Double valorUnit;
 	private CategoriaDTO categoriaDTO;
-	private FuncionarioResponseDTO funcionarioResponseDTO;
+	private FuncionarioDTO funcionarioDTO;
 
-	public ProdutoDTO(String nome, String descricao, LocalDate dataFab, Integer qtdEstoque, Double valorUnit,
-			CategoriaDTO categoriaDTO, FuncionarioResponseDTO funcionarioResponseDTO) {
+    public ProdutoAtualizarDTO(String nome, String descricao, LocalDate dataFab, Integer qtdEstoque, Double valorUnit,
+			CategoriaDTO categoriaDTO, FuncionarioDTO funcionarioDTO) {
 		super();
 		this.nome = nome;
 		this.descricao = descricao;
@@ -21,12 +21,11 @@ public class ProdutoDTO {
 		this.qtdEstoque = qtdEstoque;
 		this.valorUnit = valorUnit;
 		this.categoriaDTO = categoriaDTO;
-		this.funcionarioResponseDTO = funcionarioResponseDTO;
+		this.funcionarioDTO = funcionarioDTO;
 	}
 
-	public ProdutoDTO() {
+	public ProdutoAtualizarDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getNome() {
@@ -37,12 +36,12 @@ public class ProdutoDTO {
 		this.nome = nome;
 	}
 
-	public FuncionarioResponseDTO getFuncionarioResponseDTO() {
-		return funcionarioResponseDTO;
+	public FuncionarioDTO getFuncionarioDTO() {
+		return funcionarioDTO;
 	}
 
-	public void setFuncionarioResponseDTO(FuncionarioResponseDTO funcionarioResponseDTO) {
-		this.funcionarioResponseDTO = funcionarioResponseDTO;
+	public void setFuncionarioDTO(FuncionarioDTO funcionarioDTO) {
+		this.funcionarioDTO = funcionarioDTO;
 	}
 
 	public String getDescricao() {
@@ -84,5 +83,5 @@ public class ProdutoDTO {
 	public void setCategoriaDTO(CategoriaDTO categoriaDTO) {
 		this.categoriaDTO = categoriaDTO;
 	}
-		
+
 }

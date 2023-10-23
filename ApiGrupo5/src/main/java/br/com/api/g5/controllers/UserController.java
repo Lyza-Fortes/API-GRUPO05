@@ -10,6 +10,7 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -77,7 +78,7 @@ public class UserController {
 	private PasswordEncoder passwordEncoder;
 
 	@PostMapping("/registro")
-	public ResponseEntity<?> cadastro(@RequestParam String email, @Valid @RequestBody UserDTO user) {
+	public ResponseEntity<String> cadastro(@RequestParam String email, @Valid @RequestBody UserDTO user) {
 
 		Set<String> strRoles = user.getRoles();
 		Set<Role> roles = new HashSet<>();
@@ -148,12 +149,14 @@ public class UserController {
 		}
 
 		emailService.envioEmailCadastro(user);
-
-		return ResponseEntity.ok(new MessageResponseDTO("Cadastro finalizado com sucesso!"));
+		
+		//return ResponseEntity.ok(new MessageResponseDTO("Cadastro efetuado com sucesso!"));
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body("Cadastro efetuado com sucesso!");
 	}
 
 	@PostMapping("/login")
-	public Map<String, Object> login(@Valid @RequestBody LoginDTO body) {
+	public ResponseEntity<String> login(@Valid @RequestBody LoginDTO body) {
 		try {
 			UsernamePasswordAuthenticationToken authInputToken = new UsernamePasswordAuthenticationToken(
 					body.getEmail(), body.getPassword());
@@ -168,7 +171,11 @@ public class UserController {
 			usuarioResumido.setRoles(user.getRoles());
 			String token = jwtUtil.generateTokenWithUserData(usuarioResumido);
 
-			return Collections.singletonMap("jwt-token", token);
+			//MessageResponseDTO retornoLogin = new MessageResponseDTO("Login efetuado com sucesso! Por favor copie o seu Token: Bearer "
+				//	+ token);
+			//return ResponseEntity.ok().body(retornoLogin);
+			
+			return ResponseEntity.status(HttpStatus.OK).body("Login efetuado com sucesso!\n\nToken:"+token);
 		} catch (AuthenticationException authExc) {
 			throw new RuntimeException("Credenciais Invalidas");
 		}

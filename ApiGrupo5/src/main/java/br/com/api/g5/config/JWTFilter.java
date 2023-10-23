@@ -28,11 +28,11 @@ public class JWTFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		String authHeader = request.getHeader("Authorization");
-		if (authHeader != null && !authHeader.isBlank() && authHeader.startsWith("Bearer ")) {
+		if (authHeader != null && !authHeader.isBlank() && authHeader.startsWith("Grupo5-")) {
 			String jwt = authHeader.substring(7);
 			if (jwt == null || jwt.isBlank()) {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-						"Foi passado um Token JWT inválido no Bearer Header");
+						"Foi passado um Token JWT inválido no Header");
 			} else {
 				try {
 					String email = jwtUtil.validateTokenAndRetrieveSubject(jwt);

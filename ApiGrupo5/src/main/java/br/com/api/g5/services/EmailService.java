@@ -1,9 +1,6 @@
 package br.com.api.g5.services;
 
-import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Properties;
 
 import javax.mail.MessagingException;
@@ -19,6 +16,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import br.com.api.g5.dto.ClienteDTO;
+import br.com.api.g5.dto.FuncionarioDTO;
 import br.com.api.g5.dto.UserDTO;
 import br.com.api.g5.entities.User;
 
@@ -221,8 +220,8 @@ public class EmailService {
 			StringBuilder builder = new StringBuilder();
 			builder.append("<html>\r\n");
 			builder.append("	<body>\r\n");
-			builder.append("		<img src=\"cid:logo3\">\r\n");
 			builder.append("		<div align=\"center\">\r\n");
+			builder.append("		<img src=\"cid:logo3\">\r\n");
 			builder.append("			<h1>Confirmação de Cancelamento de Pedido</h1>\r\n");
 			builder.append("		</div>\r\n");
 			builder.append("		<br/>\r\n");
@@ -282,5 +281,254 @@ public class EmailService {
 		}
 
 	}
+	
+	
+	public void envioEmailDesativacaoContaCliente(ClienteDTO clienteDTO) {
+		MimeMessage mensagemCadastro = emailSender.createMimeMessage();
+
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(mensagemCadastro, true);
+			helper.setFrom("grupo5api20232@gmail.com");
+			helper.setTo("arthurmonteiro20172018@gmail.com");
+			helper.setSubject("Desativação de Conta de Cliente!");
+
+			StringBuilder builder = new StringBuilder();
+			builder.append("<html>\r\n");
+			builder.append("	<body>\r\n");
+			builder.append("		<div align=\"center\">\r\n");
+			builder.append("		<img src=\"cid:logo4\">\r\n");
+			builder.append("			<h1>Desativação de Conta de Cliente</h1>\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<br/>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			Olá \r\n");
+			builder.append(clienteDTO.getNome());
+			builder.append(",");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Estamos entrando em contato para informar que sua conta na GRUPO 5 ENTERPRISE foi desativada.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Motivo da Desativação:\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Não tem um motivo, a gente desativou por que sim\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Caso tenha alguma dúvida ou precise de mais informações sobre a desativação de sua conta, entre em contato conosco.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Agradecemos por ter sido parte de nossa comunidade e lamentamos por qualquer inconveniência que isso possa causar.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Atenciosamente,\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			A Equipe da GRUPO 5 ENTERPRISE\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("	</body>\r\n");
+			builder.append("</html>\r\n");
+
+			helper.setText(builder.toString(), true);
+			ClassPathResource img = new ClassPathResource("img/logo_grupo_5.png");
+			helper.addInline("logo4", img);
+			emailSender.send(mensagemCadastro);
+
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	
+	public void envioEmailDesativacaoContaFuncionario(FuncionarioDTO funcionarioDTO) {
+		MimeMessage mensagemCadastro = emailSender.createMimeMessage();
+
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(mensagemCadastro, true);
+			helper.setFrom("grupo5api20232@gmail.com");
+			helper.setTo("arthurmonteiro20172018@gmail.com");
+			helper.setSubject("Desativação de Conta de Funcionario!");
+
+			StringBuilder builder = new StringBuilder();
+			builder.append("<html>\r\n");
+			builder.append("	<body>\r\n");
+			builder.append("		<div align=\"center\">\r\n");
+			builder.append("		<img src=\"cid:logo5\">\r\n");
+			builder.append("			<h1>Desativação de Conta de Cliente</h1>\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<br/>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			Olá \r\n");
+			builder.append(funcionarioDTO.getNome());
+			builder.append(",");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Estamos entrando em contato para informar que sua conta na GRUPO 5 ENTERPRISE foi desativada.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Motivo da Desativação:\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Não tem um motivo, a gente desativou por que sim\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Caso tenha alguma dúvida ou precise de mais informações sobre a desativação de sua conta, entre em contato conosco.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Agradecemos por ter sido parte de nossa comunidade e lamentamos por qualquer inconveniência que isso possa causar.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Atenciosamente,\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			A Equipe da GRUPO 5 ENTERPRISE\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("	</body>\r\n");
+			builder.append("</html>\r\n");
+
+			helper.setText(builder.toString(), true);
+			ClassPathResource img = new ClassPathResource("img/logo_grupo_5.png");
+			helper.addInline("logo5", img);
+			emailSender.send(mensagemCadastro);
+
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	
+	public void envioEmailAtivacaoContaCliente(ClienteDTO clienteDTO) {
+		MimeMessage mensagemCadastro = emailSender.createMimeMessage();
+
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(mensagemCadastro, true);
+			helper.setFrom("grupo5api20232@gmail.com");
+			helper.setTo("arthurmonteiro20172018@gmail.com");
+			helper.setSubject("Ativacao de Conta de Cliente!");
+
+			StringBuilder builder = new StringBuilder();
+
+			builder.append("<html>\r\n");
+			builder.append("	<body>\r\n");
+			builder.append("		<div align=\"center\">\r\n");
+			builder.append("		<img src=\"cid:logo6\">\r\n");
+			builder.append("			<h1>Ativação de Conta</h1>\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<br/>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			Olá \r\n");
+			builder.append(clienteDTO.getNome());
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Temos o prazer de informar que sua conta na GRUPO 5 ENTERPRISE foi ativada com sucesso.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Você agora tem acesso completo aos nossos serviços e recursos. Sinta-se à vontade para explorar e utilizar a sua conta.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Caso tenha alguma dúvida ou precise de assistência, nossa equipe de suporte está à disposição para ajudá-lo.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Agradecemos por se juntar à GRUPO 5 ENTERPRISE e esperamos proporcionar a melhor experiência possível.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Atenciosamente,\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			A Equipe da GRUPO 5 ENTERPRISE\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("	</body>\r\n");
+			builder.append("</html>\r\n");
+
+			helper.setText(builder.toString(), true);
+			ClassPathResource img = new ClassPathResource("img/logo_grupo_5.png");
+			helper.addInline("logo6", img);
+			emailSender.send(mensagemCadastro);
+
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	
+	public void envioEmailAtivacaoContaFuncionario(FuncionarioDTO funcionarioDTO) {
+		MimeMessage mensagemCadastro = emailSender.createMimeMessage();
+
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(mensagemCadastro, true);
+			helper.setFrom("grupo5api20232@gmail.com");
+			helper.setTo("arthurmonteiro20172018@gmail.com");
+			helper.setSubject("Ativacao de Conta de Funcionario!");
+
+			StringBuilder builder = new StringBuilder();
+
+			builder.append("<html>\r\n");
+			builder.append("	<body>\r\n");
+			builder.append("		<div align=\"center\">\r\n");
+			builder.append("		<img src=\"cid:logo6\">\r\n");
+			builder.append("			<h1>Ativação de Conta</h1>\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<br/>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			Olá \r\n");
+			builder.append(funcionarioDTO.getNome());
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Temos o prazer de informar que sua conta na GRUPO 5 ENTERPRISE foi ativada com sucesso.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Você agora tem acesso completo aos nossos serviços e recursos. Sinta-se à vontade para explorar e utilizar a sua conta.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Caso tenha alguma dúvida ou precise de assistência, nossa equipe de suporte está à disposição para ajudá-lo.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Agradecemos por se juntar à GRUPO 5 ENTERPRISE e esperamos proporcionar a melhor experiência possível.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Atenciosamente,\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			A Equipe da GRUPO 5 ENTERPRISE\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("	</body>\r\n");
+			builder.append("</html>\r\n");
+
+			helper.setText(builder.toString(), true);
+			ClassPathResource img = new ClassPathResource("img/logo_grupo_5.png");
+			helper.addInline("logo6", img);
+			emailSender.send(mensagemCadastro);
+
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
 
 }

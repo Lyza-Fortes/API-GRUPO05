@@ -15,11 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.api.g5.dto.FuncionarioAtualizarDTO;
 import br.com.api.g5.dto.FuncionarioDTO;
+import br.com.api.g5.services.EmailService;
 import br.com.api.g5.services.FuncionarioService;
 
 @RestController
 @RequestMapping("/funcionario")
 public class FuncionarioController {
+	
+	private EmailService emailService;
+    @Autowired
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
+	
 	@Autowired
 	FuncionarioService funcionarioService;
 	
@@ -36,7 +44,6 @@ public class FuncionarioController {
 //	@PostMapping("/salvar")
 //	public Funcionario salvar(@Valid @RequestBody Funcionario funcionario) {
 //		return funcionarioService.salvar(funcionario);
-//
 //	}
 	
 	@PutMapping("/atualizar/{id}")
@@ -44,9 +51,19 @@ public class FuncionarioController {
 		return funcionarioService.atualizar(id, funcionario);
 	}
 	
+	@PutMapping("/ativar/{id}")
+	public void ativarLogico(@PathVariable Integer id) {
+		FuncionarioDTO funcionarioDTO = funcionarioService.buscarPorId(id);
+		funcionarioService.ativarLogico(id);
+		emailService.envioEmailAtivacaoContaFuncionario(funcionarioDTO);
+	}
+	
 	@DeleteMapping("/remover/{id}")
 	public void removerLogico(@PathVariable Integer id) {
+		FuncionarioDTO funcionarioDTO = funcionarioService.buscarPorId(id);
 		funcionarioService.removerLogico(id);
+		emailService.envioEmailDesativacaoContaFuncionario(funcionarioDTO);
 	}
+	
 
 }

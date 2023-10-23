@@ -46,7 +46,7 @@ public class Produto {
 	private Double valorUnit;
 
 	@Column(name = "ativo_produto")
-	private Boolean ativo;
+	private Boolean ativo = true;
 
 	@ManyToOne
 	@JoinColumn(name = "categoria_id")

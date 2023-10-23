@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.api.g5.dto.ClienteAtualizarDTO;
 import br.com.api.g5.dto.ClienteDTO;
 import br.com.api.g5.services.ClienteService;
+import br.com.api.g5.services.EmailService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -24,6 +25,13 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
+	
+	private EmailService emailService;
+    @Autowired
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
+	
 	@Autowired
 	ClienteService clienteService;
 	
@@ -55,8 +63,18 @@ public class ClienteController {
 		return clienteService.atualizar(id, cliente);
 	}
 	
+	@PutMapping("/ativar/{id}")
+	public void ativarLogico(@PathVariable Integer id) {
+		ClienteDTO clienteDTO = clienteService.buscarPorId(id);
+		clienteService.ativarLogico(id);
+		emailService.envioEmailAtivacaoContaCliente(clienteDTO);
+	}
+	
 	@DeleteMapping("/remover/{id}")
 	public void removerLogico(@PathVariable Integer id) {
+		ClienteDTO clienteDTO = clienteService.buscarPorId(id);
 		clienteService.removerLogico(id);
+		emailService.envioEmailDesativacaoContaCliente(clienteDTO);
 	}
+			
 }
