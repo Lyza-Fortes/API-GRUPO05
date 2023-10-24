@@ -83,7 +83,7 @@ public class ClienteService {
 			userService.save(user);
 		}
 		if (clienteDTO.getPassword() != null) {
-			User user = userService.findByPassword(registroAntigo.getPassword());
+			User user = userService.findByEmail(registroAntigo.getEmail());
 			user.setPassword(clienteDTO.getPassword());
 			registroAntigo.setPassword(clienteDTO.getPassword());
 			userService.save(user);

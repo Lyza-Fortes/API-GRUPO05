@@ -115,7 +115,7 @@ public class FuncionarioService {
 			userService.save(user);
 		}
 		if (funcionarioDTO.getPassword() != null) {
-			User user = userService.findByPassword(registroAntigo.getPassword());
+			User user = userService.findByEmail(registroAntigo.getEmail());
 			user.setPassword(funcionarioDTO.getPassword());
 			registroAntigo.setPassword(funcionarioDTO.getPassword());
 			userService.save(user);
