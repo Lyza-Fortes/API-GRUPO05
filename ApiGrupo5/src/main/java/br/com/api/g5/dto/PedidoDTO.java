@@ -5,31 +5,44 @@ import java.util.List;
 
 public class PedidoDTO {
 	
-	private Integer idProdutos;
-	private List<Integer> itemQuantidade;
+	private Integer cliente;
+	private List<Integer> idProdutos;
+	private Integer itemQuantidade;
 	private LocalDateTime dataPedido;
+	
+	public Integer getCliente() {
+		return cliente;
+	}
+	public void setCliente(Integer cliente) {
+		this.cliente = cliente;
+	}
 	public LocalDateTime getDataPedido() {
 		return dataPedido;
 	}
 	public void setDataPedido(LocalDateTime dataPedido) {
 		this.dataPedido = dataPedido;
 	}
-	public Integer getIdProdutos() {
+	public List<Integer> getIdProdutos() {
 		return idProdutos;
 	}
-	public void setIdProdutos(Integer idProdutos) {
+	public void setIdProdutos(List<Integer> idProdutos) {
 		this.idProdutos = idProdutos;
 	}
-	public List<Integer> getItemQuantidade() {
+	public Integer getItemQuantidade() {
 		return itemQuantidade;
 	}
-	public void setItemQuantidade(List<Integer> itemQuantidade) {
+	public void setItemQuantidade(Integer itemQuantidade) {
 		this.itemQuantidade = itemQuantidade;
 	}
 	public PedidoDTO() {
 	}
-    public PedidoDTO(Integer idProdutos, List<Integer> itemQuantidade) {
-        this.idProdutos = idProdutos;
-        this.itemQuantidade = itemQuantidade;
-    }
+	public PedidoDTO(Integer cliente, List<Integer> idProdutos, Integer itemQuantidade, LocalDateTime dataPedido) {
+		super();
+		this.cliente = cliente;
+		this.idProdutos = idProdutos;
+		this.itemQuantidade = itemQuantidade;
+		this.dataPedido = dataPedido;
+	}
+	
+	
 }

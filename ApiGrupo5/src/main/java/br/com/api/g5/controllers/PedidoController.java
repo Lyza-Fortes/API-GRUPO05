@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.api.g5.dto.PedidoDTO;
 import br.com.api.g5.dto.PedidoResponseDTO;
-import br.com.api.g5.entities.Pedido;
 import br.com.api.g5.services.PedidoService;
 
 @RestController
@@ -25,10 +25,10 @@ public class PedidoController {
 	@Autowired
 	PedidoService pedidoService;
 	
-	@GetMapping("/buscar/{id}")
-	public PedidoDTO buscarPorId(@PathVariable Integer id) {
-		return pedidoService.buscarPorId(id);
-	}
+//	@GetMapping("/buscar/{id}")
+//	public PedidoDTO buscarPorId(@PathVariable Integer id) {
+//		return pedidoService.buscarPorId(id);
+//	}
 
 	@GetMapping("/listar")
 	public List<PedidoResponseDTO> listarTodos() {
@@ -36,7 +36,7 @@ public class PedidoController {
 	}
 	
 	@PostMapping("/salvar")
-	public PedidoDTO salvar(@Valid @RequestBody PedidoDTO pedidoDTO) {
+	public ResponseEntity<?> salvar(@Valid @RequestBody PedidoDTO pedidoDTO) {
 		return pedidoService.salvar(pedidoDTO);
 	}
 	

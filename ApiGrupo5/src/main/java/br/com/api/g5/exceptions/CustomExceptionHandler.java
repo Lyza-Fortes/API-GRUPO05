@@ -29,9 +29,9 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 			erros.add(error.getDefaultMessage());
 		}
 
-		ErroResponse erro = new ErroResponse(status.value(), "Preencha todos os campos", erros);
+		ErrorResponse error = new ErrorResponse(status.value(), "Preencha todos os campos", erros);
 
-		return super.handleExceptionInternal(ex, erro, headers, status, request);
+		return super.handleExceptionInternal(ex, error, headers, status, request);
 	}
 
 	@ExceptionHandler(ConstraintViolationException.class)
@@ -45,18 +45,9 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 			errors.add("Campo '" + nomeCampo + "': " + mensagem);
 		}
 
-		ErroResponse erro = new ErroResponse(HttpStatus.BAD_REQUEST.value(), "Erro de validação", errors);
+		ErrorResponse error = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Erro de validação", errors);
 
-		return handleExceptionInternal(ex, erro, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+		return handleExceptionInternal(ex, error, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
 	}
 
-//    @ExceptionHandler(Exception.class)
-//    public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
-//        List<String> details = new ArrayList<>();
-//        details.add(ex.getLocalizedMessage());
-//        HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-//        ErroResponse error = new ErroResponse(httpStatus.value(), "Erro Interno no Servidor", details);
-//
-//        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
 }

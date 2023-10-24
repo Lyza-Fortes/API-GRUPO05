@@ -1,7 +1,6 @@
 package br.com.api.g5.entities;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +56,11 @@ public class Produto {
 	@ManyToOne
 	@JoinColumn(name = "funcionario_id")
 	private Funcionario funcionario;
+	
+	@ElementCollection
+	@CollectionTable(name = "pedido_produto", joinColumns = @JoinColumn(name = "produto_id"))
+	@MapKeyJoinColumn(name = "pedido_id")
+	private Map<Pedido, PedidoProduto> itemQuantidade = new HashMap<>();
 
 	// @ElementCollection
 	// @CollectionTable(

@@ -1,6 +1,7 @@
 package br.com.api.g5.mappers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import br.com.api.g5.dto.CategoriaDTO;
 import br.com.api.g5.dto.ClienteAtualizarDTO;
@@ -19,6 +20,8 @@ import br.com.api.g5.services.CategoriaService;
 import br.com.api.g5.services.FuncionarioService;
 import br.com.api.g5.services.ProdutoService;
 
+
+@Component
 public class Conversores {
 
 	@Autowired
@@ -108,13 +111,13 @@ public class Conversores {
 			return produtoConvertido;
 		}
 		
-		//Conversão DTO
-		public PedidoDTO converterPedidoDTO(Pedido pedido) {
-			PedidoDTO pedidoDTOConvertido = new PedidoDTO();
-			pedidoDTOConvertido.setItemQuantidade(pedido.getItemQuantidade());
-			pedidoDTOConvertido.setIdProdutos(produtoService.buscarIdPorObjeto(pedido));
-			return pedidoDTOConvertido;
-		}
+//		//Conversão DTO
+//		public PedidoDTO converterPedidoDTO(Pedido pedido) {
+//			PedidoDTO pedidoDTOConvertido = new PedidoDTO();
+//			pedidoDTOConvertido.setItemQuantidade(pedido.getItemQuantidade());
+//			pedidoDTOConvertido.setIdProdutos(produtoService.buscarIdPorObjeto(pedido));
+//			return pedidoDTOConvertido;
+//		}
 
 		//Conversão Response DTO
 		public PedidoResponseDTO converterPedidoResponseDTO(Pedido pedido) {

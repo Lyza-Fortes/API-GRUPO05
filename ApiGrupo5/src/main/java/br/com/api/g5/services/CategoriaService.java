@@ -16,6 +16,7 @@ public class CategoriaService {
 
 	@Autowired
 	CategoriaRepository categoriaRepository;
+	
 	@Autowired
 	Conversores conversores;
 	

@@ -38,19 +38,22 @@ public class ProdutoService {
 	}
 
 	public List<Produto> buscarPorIdLista(Integer id) {
-		List<Produto>listaProdutos = new ArrayList<>();
+		List<Produto> listaProdutos = listarTodosA();
+		
 		for (Produto p : listaProdutos) {
-			listaProdutos.add(produtoRepository.findById(id).get());
+			listaProdutos.add(p);
 		}
+		 
 		return listaProdutos;
 	}
-
-	public List<Double> buscarValorPorId(ProdutoDTO produtoDTO, PedidoDTO pedidoDTO) {
-		Double n = produtoDTO.getValorUnit() * pedidoDTO.getItemQuantidade().get(0);
-		List<Double> i = new ArrayList();
-		i.add(n);
-		return i;
-	}
+ 
+//	public List<Double> buscarValorPorId(List<ProdutoDTO> produtoDTO, PedidoDTO pedidoDTO) {
+//		Double n = produtoDTO.getValorUnit() * pedidoDTO.getItemQuantidade().get(0);
+//		for (Produto p : produtoDTO) {
+//			produtoDTO.add(n);
+//		}
+//		return i;
+//	}
 
 	// GET Listar
 	public List<ProdutoDTO> listarTodos() {
@@ -60,6 +63,10 @@ public class ProdutoService {
 			infoProdutos.add(conversores.converterProdutoDTO(produto));
 		}
 		return infoProdutos;
+	}
+	
+	public List<Produto> listarTodosA() {
+		return produtoRepository.findAll();
 	}
 
 	//método passa o pedido como parâmetro para depois retornar o id de produto

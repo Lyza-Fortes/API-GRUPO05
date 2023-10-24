@@ -1,7 +1,6 @@
 package br.com.api.g5.entities;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
@@ -39,41 +38,6 @@ public class Pedido {
 			)
 	private List<Produto> produtos;
 
-	@ElementCollection
-	@CollectionTable(
-	name = "pedido_produto",
-	joinColumns = @JoinColumn(name = "pedido_id")
-	)
-	@MapKeyJoinColumn(name = "produto_id")
-	@NotNull
-	@Column(name = "valorTotal")
-	private List<Double> valorTotal;
-
-	@ElementCollection
-	@CollectionTable(
-	name = "pedido_produto",
-	joinColumns = @JoinColumn(name = "produto_id")
-	)
-	@MapKeyJoinColumn(name = "pedido_id")
-	@NotNull(message="É necessário definir uma quantidade para comprar.")
-	@Column(name = "quantidade")
-	private List<Integer> itemQuantidade;
-
-	public List<Integer> getItemQuantidade() {
-		return itemQuantidade;
-	}
-
-	public void setItemQuantidade(List<Integer> itemQuantidade) {
-		this.itemQuantidade = itemQuantidade;
-	}
-
-	public List<Double> getValorTotal() {
-		return valorTotal;
-	}
-
-	public void setValorTotal(List<Double> valorTotal) {
-		this.valorTotal = valorTotal;
-	}
 
 	public Pedido() {
 		super();
