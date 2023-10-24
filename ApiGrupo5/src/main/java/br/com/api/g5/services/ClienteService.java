@@ -32,6 +32,12 @@ public class ClienteService {
 	
 	@Autowired
 	Conversores conversores;
+	
+	private EmailService emailService;
+    @Autowired
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
 
 	// GET Id
 	public ClienteDTO buscarPorId(Integer id) {
@@ -61,9 +67,6 @@ public class ClienteService {
 
 		Cliente registroAntigo = clienteRepository.findById(id).get();
 
-		if (clienteDTO.getPassword() != null) {
-			registroAntigo.setPassword(clienteDTO.getPassword());
-		}
 		if (clienteDTO.getNome() != null) {
 			registroAntigo.setNome(clienteDTO.getNome());
 		}
@@ -78,6 +81,13 @@ public class ClienteService {
 			user.setEmail(clienteDTO.getEmail());
 			registroAntigo.setEmail(clienteDTO.getEmail());
 			userService.save(user);
+		}
+		if (clienteDTO.getPassword() != null) {
+			User user = userService.findByPassword(registroAntigo.getPassword());
+			user.setPassword(clienteDTO.getPassword());
+			registroAntigo.setPassword(clienteDTO.getPassword());
+			userService.save(user);
+			emailService.envioEmailTrocaSenha(user);
 		}
 		if (clienteDTO.getCep() != null) {
 			Endereco viaCep = enderecoService.pesquisarEndereco(clienteDTO.getCep());

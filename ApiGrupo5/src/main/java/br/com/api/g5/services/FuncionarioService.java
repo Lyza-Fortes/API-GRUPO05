@@ -33,6 +33,12 @@ public class FuncionarioService {
 	
 	@Autowired
 	Conversores conversores;
+	
+	private EmailService emailService;
+    @Autowired
+    public void setEmailService(EmailService emailService) {
+        this.emailService = emailService;
+    }
 
 	// GET Id
 	public FuncionarioDTO buscarPorId(Integer id) {
@@ -93,9 +99,6 @@ public class FuncionarioService {
 
 		Funcionario registroAntigo = funcionarioRepository.findById(id).get();
 
-		if (funcionarioDTO.getPassword() != null) {
-			registroAntigo.setPassword(funcionarioDTO.getPassword());
-		}
 		if (funcionarioDTO.getNome() != null) {
 			registroAntigo.setNome(funcionarioDTO.getNome());
 		}
@@ -110,6 +113,13 @@ public class FuncionarioService {
 			user.setEmail(funcionarioDTO.getEmail());
 			registroAntigo.setEmail(funcionarioDTO.getEmail());
 			userService.save(user);
+		}
+		if (funcionarioDTO.getPassword() != null) {
+			User user = userService.findByPassword(registroAntigo.getPassword());
+			user.setPassword(funcionarioDTO.getPassword());
+			registroAntigo.setPassword(funcionarioDTO.getPassword());
+			userService.save(user);
+			emailService.envioEmailTrocaSenha(user);
 		}
 		if (funcionarioDTO.getCep() != null) {
 			Endereco viaCep = enderecoService.pesquisarEndereco(funcionarioDTO.getCep());

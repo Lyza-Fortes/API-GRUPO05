@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 
 import br.com.api.g5.dto.PedidoDTO;
 import br.com.api.g5.dto.PedidoResponseDTO;
-import br.com.api.g5.dto.ProdutoDTO;
 import br.com.api.g5.entities.Pedido;
 import br.com.api.g5.entities.PedidoProduto;
 import br.com.api.g5.entities.Produto;
+import br.com.api.g5.entities.User;
 import br.com.api.g5.mappers.Conversores;
 import br.com.api.g5.repositories.PedidoRepository;
 import br.com.api.g5.repositories.ProdutoRepository;
@@ -32,6 +32,9 @@ public class PedidoService {
 	
 	@Autowired
 	Conversores conversores;
+	
+	@Autowired
+	UserService userService;
 
 	private EmailService emailService;
     @Autowired
@@ -78,14 +81,15 @@ public class PedidoService {
 		pedidoRepository.save(salvarPedido);
 		
 		pedidoProduto.setValorTotal(valor);
-		
-		//emailService.envioEmailConfirmacaoPedido(null, pedidoDTO);
+		User user = userService.findById(pedidoDTO.getCliente());
+		emailService.envioEmailConfirmacaoPedido(user, pedidoProduto);
 		return ResponseEntity.status(HttpStatus.CREATED).body("Pedido efetuado com sucesso!");
 	}
 
 	//DELETE
 	public void remover(Integer id) {
 		pedidoRepository.deleteById(id);
+		emailService.envioEmailCancelamentoPedido();
 	}
 	
 	//PUT

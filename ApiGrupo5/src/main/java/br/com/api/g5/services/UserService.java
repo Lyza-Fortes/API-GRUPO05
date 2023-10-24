@@ -18,6 +18,9 @@ public class UserService {
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email).get();
 	}
+	public User findByPassword(String password) {
+		return userRepository.findByPassword(password).get();
+	}
 
 	public User save(User user) {
 		return userRepository.save(user);
@@ -32,5 +35,8 @@ public class UserService {
 //		emailService.envioEmailEncerramentoConta(user);
 //		userRepository.deleteById(id);
 //	}
+	public User findById(Integer id) {
+		return userRepository.findById(id).get();
+	}
 
 }

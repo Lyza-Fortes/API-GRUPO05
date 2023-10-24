@@ -18,8 +18,8 @@ import org.springframework.stereotype.Service;
 
 import br.com.api.g5.dto.ClienteDTO;
 import br.com.api.g5.dto.FuncionarioDTO;
-import br.com.api.g5.dto.PedidoDTO;
 import br.com.api.g5.dto.UserDTO;
+import br.com.api.g5.entities.PedidoProduto;
 import br.com.api.g5.entities.User;
 
 @Configuration
@@ -222,7 +222,7 @@ public class EmailService {
 			builder.append("<html>\r\n");
 			builder.append("	<body>\r\n");
 			builder.append("		<div align=\"center\">\r\n");
-			builder.append("		<img src=\"cid:logo3\">\r\n");
+			builder.append("		<img src=\"cid:logo12\">\r\n");
 			builder.append("			<h1>Confirmação de Cancelamento de Pedido</h1>\r\n");
 			builder.append("		</div>\r\n");
 			builder.append("		<br/>\r\n");
@@ -274,7 +274,69 @@ public class EmailService {
 
 			helper.setText(builder.toString(), true);
 			ClassPathResource img = new ClassPathResource("img/logo_grupo_5.png");
-			helper.addInline("logo3", img);
+			helper.addInline("logo12", img);
+			emailSender.send(mensagemCadastro);
+
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void envioEmailTrocaSenha(User user) {
+		MimeMessage mensagemCadastro = emailSender.createMimeMessage();
+
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(mensagemCadastro, true);
+			helper.setFrom("grupo5api20232@gmail.com");
+			helper.setTo("arthurmonteiro20172018@gmail.com");
+			helper.setSubject("Troca de senha");
+
+			StringBuilder builder = new StringBuilder();
+			builder.append("<html>\r\n");
+			builder.append("	<body>\r\n");
+			builder.append("		<div align=\"center\">\r\n");
+			builder.append("		<img src=\"cid:logo10\">\r\n");
+			builder.append("			<h1>Confirmação de Troca de Senha</h1>\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<br/>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			Olá \r\n");
+			builder.append(user.getNomeUsuario());
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Este e-mail é para confirmar que sua solicitação de troca de senha foi bem-sucedida.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Aqui estão os detalhes da sua conta:\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Nome de Usuário: {nome_usuario}\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Sua senha foi atualizada com sucesso e sua conta está protegida. Se você não solicitou essa alteração ou acredita que houve algum problema, entre em contato conosco imediatamente para garantir a segurança da sua conta.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Para quaisquer dúvidas ou necessidades adicionais, não hesite em nos contatar. Estamos aqui para ajudar.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Atenciosamente,\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			A Equipe da GRUPO 5 ENTERPRISE\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("	</body>\r\n");
+			builder.append("</html>\r\n");
+			
+			helper.setText(builder.toString(), true);
+			ClassPathResource img = new ClassPathResource("img/logo_grupo_5.png");
+			helper.addInline("logo10", img);
 			emailSender.send(mensagemCadastro);
 
 		} catch (MessagingException e) {
@@ -531,7 +593,7 @@ public class EmailService {
 
 	}
 	
-	public void envioEmailConfirmacaoPedido(User user, PedidoDTO pedidoDTO) {
+	public void envioEmailConfirmacaoPedido(User user, PedidoProduto pedidoProduto) {
 		MimeMessage mensagemCadastro = emailSender.createMimeMessage();
 
 		try {
