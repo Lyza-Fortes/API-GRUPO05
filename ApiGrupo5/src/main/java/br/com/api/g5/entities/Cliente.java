@@ -61,9 +61,9 @@ public class Cliente {
 	@NotNull(message="Campo data de nascimento não pode ser nulo")
 	@Column(name = "data_nascimento_cliente")
 	private LocalDate dataNascimento;
-
+	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@NotNull(message="Campo senha não pode ser nulo")
-	@Size(max=10)
 	@Column(name = "password_cliente")
 	private String password;
 
@@ -75,7 +75,7 @@ public class Cliente {
 	private Endereco endereco;
 
 	@OneToMany
-	@JoinColumn(name="pedido_id")
+	@JoinColumn(name="cliente_id")
 	private List<Pedido> pedido;
 	
 	@OneToOne

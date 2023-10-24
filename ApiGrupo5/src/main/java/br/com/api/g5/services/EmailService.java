@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import br.com.api.g5.dto.ClienteDTO;
 import br.com.api.g5.dto.FuncionarioDTO;
 import br.com.api.g5.dto.UserDTO;
+import br.com.api.g5.entities.Cliente;
 import br.com.api.g5.entities.PedidoProduto;
 import br.com.api.g5.entities.User;
 
@@ -593,7 +594,7 @@ public class EmailService {
 
 	}
 	
-	public void envioEmailConfirmacaoPedido(User user, PedidoProduto pedidoProduto) {
+	public void envioEmailConfirmacaoPedido(Cliente cliente, PedidoProduto pedidoProduto) {
 		MimeMessage mensagemCadastro = emailSender.createMimeMessage();
 
 		try {
@@ -612,7 +613,7 @@ public class EmailService {
 			builder.append("		<br/>\r\n");
 			builder.append("		<div align=\"left\">\r\n");
 			builder.append("			Olá \r\n");
-			builder.append(user.getNomeUsuario());
+			builder.append(cliente.getNomeUsuario());
 			builder.append("		</div>\r\n");
 			builder.append("		<div align=\"left\">\r\n");
 			builder.append("			<br/>\r\n");

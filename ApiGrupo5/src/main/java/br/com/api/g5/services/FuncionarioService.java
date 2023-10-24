@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.api.g5.config.PasswordEncoder;
 import br.com.api.g5.dto.FuncionarioAtualizarDTO;
 import br.com.api.g5.dto.FuncionarioDTO;
 import br.com.api.g5.dto.FuncionarioResponseDTO;
@@ -116,8 +117,9 @@ public class FuncionarioService {
 		}
 		if (funcionarioDTO.getPassword() != null) {
 			User user = userService.findByEmail(registroAntigo.getEmail());
-			user.setPassword(funcionarioDTO.getPassword());
-			registroAntigo.setPassword(funcionarioDTO.getPassword());
+			String senhaCriptografada = PasswordEncoder.encodePassword(funcionarioDTO.getPassword());
+	        registroAntigo.setPassword(senhaCriptografada);
+	        user.setPassword(senhaCriptografada);
 			userService.save(user);
 			emailService.envioEmailTrocaSenha(user);
 		}

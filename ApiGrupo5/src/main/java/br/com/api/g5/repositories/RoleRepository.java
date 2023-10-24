@@ -12,7 +12,7 @@ import br.com.api.g5.enums.TipoRoleEnum;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Integer> {
-
+	
 	Optional<Role> findByName(TipoRoleEnum roleUser);
 
 	@Query(value = "select r.* from tb_user u \r\n" + "inner join usuario_role ur on u.id_user = ur.usuario_id\r\n"

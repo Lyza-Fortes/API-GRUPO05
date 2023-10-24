@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -49,7 +50,7 @@ public class Produto {
 	@Column(name = "ativo_produto")
 	private Boolean ativo = true;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 
@@ -76,24 +77,24 @@ public class Produto {
 	}
 
 	public Produto(Integer id, @NotNull(message = "Campo nome do produto não pode ser nulo") String nome,
-            @NotNull(message = "Campo descrição do produto não pode ser nulo") String descricao,
-            @NotNull(message = "Campo data de fabricação não pode ser nulo") LocalDate dataFab, Integer qtdEstoque,
-            @NotNull(message = "Campo valor unitário não pode ser nulo") Double valorUnit, Boolean ativo,
-            Categoria categoria, Funcionario funcionario,
-            @NotNull(message = "É necessário definir uma quantidade para comprar.") List<Integer> itemQuantidade) {
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.dataFab = dataFab;
-        this.qtdEstoque = qtdEstoque;
-        this.valorUnit = valorUnit;
-        this.ativo = ativo;
-        this.categoria = categoria;
-        this.funcionario = funcionario;
-        // this.itemQuantidade = itemQuantidade;
-    }
+			@NotNull(message = "Campo descrição do produto não pode ser nulo") String descricao,
+			@NotNull(message = "Campo data de fabricação não pode ser nulo") LocalDate dataFab, Integer qtdEstoque,
+			@NotNull(message = "Campo valor unitário não pode ser nulo") Double valorUnit, Boolean ativo,
+			Categoria categoria, Funcionario funcionario, Map<Pedido, PedidoProduto> itemQuantidade) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.dataFab = dataFab;
+		this.qtdEstoque = qtdEstoque;
+		this.valorUnit = valorUnit;
+		this.ativo = ativo;
+		this.categoria = categoria;
+		this.funcionario = funcionario;
+		this.itemQuantidade = itemQuantidade;
+	}
 
-    public Integer getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -165,19 +166,14 @@ public class Produto {
 		this.funcionario = funcionario;
 	}
 
-	// public List<Integer> getItemQuantidade() {
-	// 	return itemQuantidade;
-	// }
-
-	// public void setItemQuantidade(List<Integer> itemQuantidade) {
-	// 	this.itemQuantidade = itemQuantidade;
-	// }
-
-	@Override
-	public String toString() {
-		return "Produto [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", dataFab=" + dataFab
-				+ ", qtdEstoque=" + qtdEstoque + ", valorUnit=" + valorUnit + ", ativo=" + ativo + ", categoria="
-				+ categoria + ", funcionario=" + funcionario + "]";
+	public Map<Pedido, PedidoProduto> getItemQuantidade() {
+		return itemQuantidade;
 	}
+
+	public void setItemQuantidade(Map<Pedido, PedidoProduto> itemQuantidade) {
+		this.itemQuantidade = itemQuantidade;
+	}
+
+	
 
 }

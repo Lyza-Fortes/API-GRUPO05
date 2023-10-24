@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import br.com.api.g5.repositories.UserRepository;
@@ -42,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception { // Metodo encarregado de configurar a seguranca da API
+    protected void configure(HttpSecurity http) throws Exception {
         http
 		        .cors()
 		        .and()
@@ -50,9 +49,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .httpBasic().disable()
                 .authorizeHttpRequests()
                 .antMatchers("/categoria/listar", "/categoria/buscar/{id}", "/produto/listar", "/produto/buscar/{id}", "/user/registro", "/user/login").permitAll()
-                .antMatchers("/cliente/salvar", "/cliente/atualizar", "/pedido/salvar", "/pedido/remover").hasRole("CLIENTE")
-                .antMatchers("/funcionario/buscar/{id}", "/funcionario/listar", "/funcionario/salvar", "/funcionario/atualizar", "/funcionario/remover/{id}", "/cliente/listar", "/categoria/salvar", "/categoria/atualizar", "/categoria/remover", "/pedido/listar", "/produto/salvar", "/produto/atualizar", "/produto/remover/{id}").hasRole("FUNCIONARIO")
-                .antMatchers("/cliente/buscar/{id}", "/cliente/remover/{id}", "/pedido/buscar/{id}").hasAnyRole("CLIENTE", "FUNCIONARIO")
+                .antMatchers("/cliente/atualizar").hasRole("CLIENTE")
+                .antMatchers("/funcionario/buscar/{id}", "/funcionario/listar", "/funcionario/atualizar", "/funcionario/remover/{id}", "/cliente/listar", "/categoria/salvar", "/categoria/atualizar", "/categoria/remover", "/pedido/listar", "/produto/salvar", "/produto/atualizar", "/produto/remover/{id}").hasRole("FUNCIONARIO")
+                .antMatchers("/cliente/buscar/{id}", "/cliente/remover/{id}", "/pedido/buscar/{id}", "/pedido/salvar", "/pedido/remover").hasAnyRole("CLIENTE", "FUNCIONARIO")
                 .and()
                 .userDetailsService(uds)
                 .exceptionHandling()

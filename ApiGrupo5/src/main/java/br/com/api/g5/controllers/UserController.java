@@ -1,10 +1,8 @@
 package br.com.api.g5.controllers;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -24,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.api.g5.config.JWTUtil;
 import br.com.api.g5.dto.LoginDTO;
-import br.com.api.g5.dto.MessageResponseDTO;
 import br.com.api.g5.dto.UserDTO;
 import br.com.api.g5.entities.Cliente;
 import br.com.api.g5.entities.Endereco;
@@ -120,7 +117,8 @@ public class UserController {
 					funcionario.setCelular(user.getCelular());
 					funcionario.setTelefoneFixo(user.getTelefoneFixo());
 					funcionario.setNomeUsuario(user.getNomeUsuario());
-					funcionario.setPassword(user.getPassword());
+					String encodedPassFun = passwordEncoder.encode(user.getPassword());
+					funcionario.setPassword(encodedPassFun);
 					funcionario.setCpf(user.getCpf());
 					funcionario.setDataNascimento(user.getDataNascimento());
 					funcionario.setEmail(user.getEmail());
@@ -137,7 +135,8 @@ public class UserController {
 					cliente.setTelefoneFixo(user.getTelefoneFixo());
 					cliente.setCelular(user.getCelular());
 					cliente.setNomeUsuario(user.getNomeUsuario());
-					cliente.setPassword(user.getPassword());
+					String encodedPassCli = passwordEncoder.encode(user.getPassword());
+					cliente.setPassword(encodedPassCli);
 					cliente.setCpf(user.getCpf());
 					cliente.setDataNascimento(user.getDataNascimento());
 					cliente.setEmail(user.getEmail());

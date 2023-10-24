@@ -8,14 +8,12 @@ import br.com.api.g5.dto.ClienteAtualizarDTO;
 import br.com.api.g5.dto.ClienteDTO;
 import br.com.api.g5.dto.FuncionarioAtualizarDTO;
 import br.com.api.g5.dto.FuncionarioResponseDTO;
-import br.com.api.g5.dto.PedidoDTO;
-import br.com.api.g5.dto.PedidoResponseDTO;
 import br.com.api.g5.dto.ProdutoDTO;
 import br.com.api.g5.entities.Categoria;
 import br.com.api.g5.entities.Cliente;
 import br.com.api.g5.entities.Funcionario;
-import br.com.api.g5.entities.Pedido;
 import br.com.api.g5.entities.Produto;
+import br.com.api.g5.repositories.ProdutoRepository;
 import br.com.api.g5.services.CategoriaService;
 import br.com.api.g5.services.FuncionarioService;
 import br.com.api.g5.services.ProdutoService;
@@ -29,6 +27,9 @@ public class Conversores {
 	
 	@Autowired
 	FuncionarioService funcionarioService;
+	
+	@Autowired
+	ProdutoRepository produtoRepository;
 	
 	@Autowired
 	ProdutoService produtoService;
@@ -111,19 +112,22 @@ public class Conversores {
 			return produtoConvertido;
 		}
 		
-//		//Conversão DTO
+		//Conversão DTO
 //		public PedidoDTO converterPedidoDTO(Pedido pedido) {
-//			PedidoDTO pedidoDTOConvertido = new PedidoDTO();
-//			pedidoDTOConvertido.setItemQuantidade(pedido.getItemQuantidade());
-//			pedidoDTOConvertido.setIdProdutos(produtoService.buscarIdPorObjeto(pedido));
-//			return pedidoDTOConvertido;
+//		    PedidoDTO pedidoDTOConvertido = new PedidoDTO();
+//		    PedidoProduto pedidoProduto = new PedidoProduto();
+//		    pedidoDTOConvertido.setDataPedido(pedido.getDataPedido());
+//		    
+//		    List<Produto> produtos = new ArrayList<>();
+//		    
+//		    return pedidoDTOConvertido;
 //		}
-
-		//Conversão Response DTO
-		public PedidoResponseDTO converterPedidoResponseDTO(Pedido pedido) {
-			PedidoResponseDTO pedidoResponseConvertido = new PedidoResponseDTO();
-			return pedidoResponseConvertido;
-		}
+//
+//		//Conversão Response DTO
+//		public PedidoResponseDTO converterPedidoResponseDTO(Pedido pedido) {
+//			PedidoResponseDTO pedidoResponseConvertido = new PedidoResponseDTO();
+//			return pedidoResponseConvertido;
+//		}
 
 }
 

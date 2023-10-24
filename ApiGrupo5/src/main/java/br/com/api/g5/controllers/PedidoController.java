@@ -1,13 +1,10 @@
 package br.com.api.g5.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.api.g5.dto.PedidoDTO;
-import br.com.api.g5.dto.PedidoResponseDTO;
 import br.com.api.g5.services.PedidoService;
 
 @RestController
@@ -30,14 +26,14 @@ public class PedidoController {
 //		return pedidoService.buscarPorId(id);
 //	}
 
-	@GetMapping("/listar")
-	public List<PedidoResponseDTO> listarTodos() {
-		return pedidoService.listarTodos();
-	}
+//	@GetMapping("/listar")
+//	public List<PedidoResponseDTO> listarTodos() {
+//		return pedidoService.listarTodos();
+//	}
 	
-	@PostMapping("/salvar")
-	public ResponseEntity<?> salvar(@Valid @RequestBody PedidoDTO pedidoDTO) {
-		return pedidoService.salvar(pedidoDTO);
+	@PostMapping("/salvar/{idCliente}")
+	public ResponseEntity<?> salvar(@PathVariable Integer idCliente, @Valid @RequestBody PedidoDTO pedidoDTO) {
+		return pedidoService.salvar(idCliente, pedidoDTO);
 	}
 	
 //	@PutMapping("/atualizar/{id}")

@@ -24,6 +24,7 @@ public class User {
 
 	@NotNull(message="Campo nome de usuário não pode ser nulo")
 	private String nomeUsuario;
+	
 	@NotNull(message="Campo e-mail não pode ser nulo")
 	private String email;
 

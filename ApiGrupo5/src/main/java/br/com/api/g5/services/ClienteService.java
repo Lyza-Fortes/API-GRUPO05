@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.api.g5.config.PasswordEncoder;
 import br.com.api.g5.dto.ClienteAtualizarDTO;
 import br.com.api.g5.dto.ClienteDTO;
 import br.com.api.g5.entities.Cliente;
@@ -83,12 +84,13 @@ public class ClienteService {
 			userService.save(user);
 		}
 		if (clienteDTO.getPassword() != null) {
-			User user = userService.findByEmail(registroAntigo.getEmail());
-			user.setPassword(clienteDTO.getPassword());
-			registroAntigo.setPassword(clienteDTO.getPassword());
-			userService.save(user);
-			emailService.envioEmailTrocaSenha(user);
-		}
+            User user = userService.findByEmail(registroAntigo.getEmail());
+            String senhaCriptografada = PasswordEncoder.encodePassword(clienteDTO.getPassword());
+            registroAntigo.setPassword(senhaCriptografada);
+            user.setPassword(senhaCriptografada);
+            userService.save(user);
+            emailService.envioEmailTrocaSenha(user);
+        }
 		if (clienteDTO.getCep() != null) {
 			Endereco viaCep = enderecoService.pesquisarEndereco(clienteDTO.getCep());
 			Endereco enderecoNovo = new Endereco();

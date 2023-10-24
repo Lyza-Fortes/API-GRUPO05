@@ -5,17 +5,10 @@ import java.util.List;
 
 public class PedidoDTO {
 	
-	private Integer cliente;
 	private List<Integer> idProdutos;
 	private Integer itemQuantidade;
 	private LocalDateTime dataPedido;
 	
-	public Integer getCliente() {
-		return cliente;
-	}
-	public void setCliente(Integer cliente) {
-		this.cliente = cliente;
-	}
 	public LocalDateTime getDataPedido() {
 		return dataPedido;
 	}
@@ -28,6 +21,7 @@ public class PedidoDTO {
 	public void setIdProdutos(List<Integer> idProdutos) {
 		this.idProdutos = idProdutos;
 	}
+	
 	public Integer getItemQuantidade() {
 		return itemQuantidade;
 	}
@@ -36,9 +30,8 @@ public class PedidoDTO {
 	}
 	public PedidoDTO() {
 	}
-	public PedidoDTO(Integer cliente, List<Integer> idProdutos, Integer itemQuantidade, LocalDateTime dataPedido) {
+	public PedidoDTO(List<Integer> idProdutos, Integer itemQuantidade, LocalDateTime dataPedido) {
 		super();
-		this.cliente = cliente;
 		this.idProdutos = idProdutos;
 		this.itemQuantidade = itemQuantidade;
 		this.dataPedido = dataPedido;

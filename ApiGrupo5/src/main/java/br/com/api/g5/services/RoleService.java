@@ -8,10 +8,12 @@ import br.com.api.g5.repositories.RoleRepository;
 
 @Service
 public class RoleService {
+	
 	@Autowired
 	RoleRepository roleRepository;
 
 	public Role save(Role role) {
 		return roleRepository.save(role);
 	}
+	
 }

@@ -29,9 +29,4 @@ public class RoleController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Requisição inválida.");
 	}
 	
-//	if (newRole != null)
-//		return new ResponseEntity<>(newRole, HttpStatus.CREATED);
-//	else
-//		return new ResponseEntity<>(newRole, HttpStatus.BAD_REQUEST);
-	
 }
