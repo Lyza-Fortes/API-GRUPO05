@@ -24,9 +24,10 @@ public class User {
 
 	@NotNull(message="Campo nome de usuário não pode ser nulo")
 	private String nomeUsuario;
+	
 	@NotNull(message="Campo e-mail não pode ser nulo")
 	private String email;
- 
+
 	@ManyToMany
 	@JoinTable(name = "usuario_role", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;

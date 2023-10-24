@@ -6,9 +6,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.api.g5.dto.PedidoDTO;
 import br.com.api.g5.dto.ProdutoAtualizarDTO;
 import br.com.api.g5.dto.ProdutoDTO;
+import br.com.api.g5.entities.Pedido;
 import br.com.api.g5.entities.Produto;
+import br.com.api.g5.mappers.Conversores;
 import br.com.api.g5.repositories.ProdutoRepository;
 
 @Service
@@ -22,36 +25,55 @@ public class ProdutoService {
 
 	@Autowired
 	ProdutoRepository produtoRepository;
+	
+	@Autowired
+	Conversores conversores;
 
 	// GET id
 	public ProdutoDTO buscarPorId(Integer id) {
 		ProdutoDTO infoProduto = new ProdutoDTO();
 		Produto produto = produtoRepository.findById(id).get();
-		infoProduto = converterProdutoDTO(produto);
+		infoProduto = conversores.converterProdutoDTO(produto);
 		return infoProduto;
 	}
+
+	public List<Produto> buscarPorIdLista(Integer id) {
+		List<Produto> listaProdutos = listarTodosA();
+		
+		for (Produto p : listaProdutos) {
+			listaProdutos.add(p);
+		}
+		 
+		return listaProdutos;
+	}
+ 
+//	public List<Double> buscarValorPorId(List<ProdutoDTO> produtoDTO, PedidoDTO pedidoDTO) {
+//		Double n = produtoDTO.getValorUnit() * pedidoDTO.getItemQuantidade().get(0);
+//		for (Produto p : produtoDTO) {
+//			produtoDTO.add(n);
+//		}
+//		return i;
+//	}
 
 	// GET Listar
 	public List<ProdutoDTO> listarTodos() {
 		List<ProdutoDTO> infoProdutos = new ArrayList<>();
 		List<Produto> produtos = produtoRepository.findAll();
 		for (Produto produto : produtos) {
-			infoProdutos.add(converterProdutoDTO(produto));
+			infoProdutos.add(conversores.converterProdutoDTO(produto));
 		}
 		return infoProdutos;
 	}
+	
+	public List<Produto> listarTodosA() {
+		return produtoRepository.findAll();
+	}
 
-	public ProdutoDTO converterProdutoDTO(Produto produto) {
-		ProdutoDTO produtoConvertido = new ProdutoDTO();
-		produtoConvertido.setNome(produto.getNome());
-		produtoConvertido.setDescricao(produto.getDescricao());
-		produtoConvertido.setDataFab(produto.getDataFab());
-		produtoConvertido.setQtdEstoque(produto.getQtdEstoque());
-		produtoConvertido.setValorUnit(produto.getValorUnit());
-		produtoConvertido.setCategoriaDTO(categoriaService.buscarPorId(produto.getCategoria().getId()));
-		produtoConvertido
-				.setFuncionarioResponseDTO(funcionarioService.buscarFuncPorId(produto.getFuncionario().getId()));
-		return produtoConvertido;
+	//método passa o pedido como parâmetro para depois retornar o id de produto
+	public Integer buscarIdPorObjeto(Pedido pedido) {
+		Produto p = produtoRepository.findById(pedido.getId()).get();
+
+		return p.getId();
 	}
 
 	// POST
@@ -65,7 +87,7 @@ public class ProdutoService {
 		salvarProduto.setCategoria(categoriaService.buscarPorNome(produtoDTO.getCategoriaDTO()));
 		salvarProduto.setFuncionario(funcionarioService.buscarPorNome(produtoDTO.getFuncionarioResponseDTO()));
 
-		ProdutoDTO categoriaConvertida = converterProdutoDTO(salvarProduto);
+		ProdutoDTO categoriaConvertida = conversores.converterProdutoDTO(salvarProduto);
 		produtoRepository.save(salvarProduto);
 
 		return categoriaConvertida;
@@ -120,4 +142,12 @@ public class ProdutoService {
 			produtoRepository.save(produto);
 		}
 	}
+
+	//tipo inteiro para pegarmos já o número
+	// public Integer buscarPorProduto(Produto produto) {
+	// 	ProdutoDTO infoProduto = new ProdutoDTO();
+	// 	Produto produto = produtoRepository.findAll(produto);
+	// 	infoProduto = converterProdutoDTO(produto);
+	// 	return infoProduto;
+	// }
 }

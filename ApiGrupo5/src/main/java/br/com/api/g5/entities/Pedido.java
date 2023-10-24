@@ -13,7 +13,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
+ 
 @Entity
 @Table(name = "tb_pedido")
 public class Pedido {
@@ -26,7 +26,7 @@ public class Pedido {
 	@NotNull(message="Campo data de pedido não pode ser nulo")
 	@Column(name = "data_pedido")
 	private LocalDateTime dataPedido;
-	
+
 	@ManyToMany
 	@JoinTable(
 			name="pedido_produto",
@@ -35,14 +35,16 @@ public class Pedido {
 			)
 	private List<Produto> produtos;
 
+
 	public Pedido() {
 		super();
 	}
 
-	public Pedido(Integer id, @NotNull LocalDateTime dataPedido) {
-		super();
+	public Pedido(Integer id, @NotNull(message = "Campo data de pedido não pode ser nulo") LocalDateTime dataPedido,
+			List<Produto> produtos) {
 		this.id = id;
 		this.dataPedido = dataPedido;
+		this.produtos = produtos;
 	}
 
 	public Integer getId() {
@@ -73,7 +75,4 @@ public class Pedido {
 	public String toString() {
 		return "Pedido [id=" + id + ", dataPedido=" + dataPedido + ", produtos=" + produtos + "]";
 	}
-
-	
-
 }

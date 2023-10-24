@@ -32,5 +32,8 @@ public class UserService {
 //		emailService.envioEmailEncerramentoConta(user);
 //		userRepository.deleteById(id);
 //	}
+	public User findById(Integer id) {
+		return userRepository.findById(id).get();
+	}
 
 }

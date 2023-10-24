@@ -17,6 +17,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @Table(name="tb_funcionario")
 public class Funcionario {
@@ -58,8 +60,8 @@ public class Funcionario {
 	@Column(name = "data_nascimento_funcionario")
 	private LocalDate dataNascimento;
 	
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@NotNull(message="Campo senha não pode ser nulo")
-	@Size(max=10)
 	@Column(name="password_funcionario")
 	private String password;
 
