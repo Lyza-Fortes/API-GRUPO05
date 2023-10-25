@@ -48,7 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         		.csrf().disable()
                 .httpBasic().disable()
                 .authorizeHttpRequests()
-                .antMatchers("/categoria/listar", "/categoria/buscar/{id}", "/produto/listar", "/produto/buscar/{id}", "/user/registro", "/user/login").permitAll()
+                .antMatchers("/cliente/atualizar","/funcionario/buscar/{id}", "/funcionario/listar", "/funcionario/atualizar", "/funcionario/remover/{id}", "/cliente/listar", "/categoria/salvar", "/categoria/atualizar", "/categoria/remover", "/pedido/listar", "/produto/salvar", "/produto/atualizar", "/produto/remover/{id}", "/categoria/listar","/categoria/buscar/{id}", "/produto/listar", "/produto/buscar/{id}", "/user/registro", "/user/login","/cliente/buscar/{id}", "/cliente/remover/{id}", "/pedido/buscar/{id}", "/pedido/salvar", "/pedido/remover").permitAll()
                 .antMatchers("/cliente/atualizar").hasRole("CLIENTE")
                 .antMatchers("/funcionario/buscar/{id}", "/funcionario/listar", "/funcionario/atualizar", "/funcionario/remover/{id}", "/cliente/listar", "/categoria/salvar", "/categoria/atualizar", "/categoria/remover", "/pedido/listar", "/produto/salvar", "/produto/atualizar", "/produto/remover/{id}").hasRole("FUNCIONARIO")
                 .antMatchers("/cliente/buscar/{id}", "/cliente/remover/{id}", "/pedido/buscar/{id}", "/pedido/salvar", "/pedido/remover").hasAnyRole("CLIENTE", "FUNCIONARIO")

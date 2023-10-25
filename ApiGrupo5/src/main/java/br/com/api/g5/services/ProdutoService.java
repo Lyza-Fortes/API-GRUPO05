@@ -29,7 +29,7 @@ public class ProdutoService {
 	@Autowired
 	Conversores conversores;
 
-	// GET id
+	// GET id	
 	public ProdutoDTO buscarPorId(Integer id) {
 		ProdutoDTO infoProduto = new ProdutoDTO();
 		Produto produto = produtoRepository.findById(id).get();
@@ -142,12 +142,4 @@ public class ProdutoService {
 			produtoRepository.save(produto);
 		}
 	}
-
-	//tipo inteiro para pegarmos já o número
-	// public Integer buscarPorProduto(Produto produto) {
-	// 	ProdutoDTO infoProduto = new ProdutoDTO();
-	// 	Produto produto = produtoRepository.findAll(produto);
-	// 	infoProduto = converterProdutoDTO(produto);
-	// 	return infoProduto;
-	// }
 }
