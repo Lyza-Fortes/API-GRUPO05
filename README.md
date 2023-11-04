@@ -1,3 +1,7 @@
+
+
+<img src="./logo_grupo_5.png">
+
 # Projeto E-commerce Tradicional
 Este é o repositório do projeto E-commerce Tradicional, um sistema para gerenciar um comércio eletrônico tradicional, incluindo clientes, funcionários, pedidos, produtos e categorias. Este projeto atende a requisitos essenciais para a criação e manutenção de um sistema de e-commerce robusto.
 <br><br>
@@ -75,6 +79,13 @@ Seguimos um padrão de versionamento com três dígitos, iniciando na versão 1.
 Para perguntas, sugestões ou colaborações, entre em contato com grupo5api20232@gmail.com.
 
 <strong>Autoria:</strong>
-Este projeto foi desenvolvido por um grupo de 6 pessoas e mantido pela equipe de desenvolvimento interna. É um projeto de código fechado e não aceita contribuições externas.
+Este projeto foi desenvolvido por um grupo de 6 pessoas. É um projeto de código fechado e não aceita contribuições externas.
 
-Para obter mais informações ou entrar em contato, entre em contato com grupo5api20232@gmail.com.
+### Nome dos Integrantes:
+
++ <a href="https://github.com/0ArS0"> Arthur Monteiro </a>
++ <a href="https://github.com/Lyza-Fortes"> Elizama Fortes
++ <a href="https://github.com/Paulo-Jeferson"> Paulo Jeferson
++ <a href="https://github.com/PedroTeixeira13"> Pedro Texeira
++ <a href="https://github.com/VictorSoares-C"> Victor Soares
++ <a href="https://github.com/Taissa-Bastos"> Taissa Bastos

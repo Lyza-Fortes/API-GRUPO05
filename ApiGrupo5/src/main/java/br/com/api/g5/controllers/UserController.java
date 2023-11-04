@@ -94,6 +94,7 @@ public class UserController {
 		enderecoRepository.save(enderecoNovo);
 		List<Endereco> enderecos = new ArrayList<>();
 		enderecos.add(enderecoNovo);
+<<<<<<< HEAD
 
 		User usuarioResumido = new User();
 		usuarioResumido.setNomeUsuario(user.getNomeUsuario());
@@ -102,6 +103,8 @@ public class UserController {
 		String encodedPass = passwordEncoder.encode(user.getPassword());
 		usuarioResumido.setPassword(encodedPass);
 		userService.save(usuarioResumido);
+=======
+>>>>>>> 20a4a3bae75d584705639469b1e8ba119a5ec7de
 		
 		if (strRoles == null) {
 			Role userRole = roleRepository.findByName(TipoRoleEnum.ROLE_CLIENTE)
@@ -115,17 +118,23 @@ public class UserController {
 							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
 					roles.add(adminRole);
 					Funcionario funcionario = new Funcionario();
+					User usuarioResumidoFun = new User();
+					String encodedPassFun = passwordEncoder.encode(user.getPassword());
+					usuarioResumidoFun.setNomeUsuario(user.getNomeUsuario());
+					usuarioResumidoFun.setEmail(user.getEmail());
+					usuarioResumidoFun.setRoles(roles);
+					usuarioResumidoFun.setPassword(encodedPassFun);
+					userService.save(usuarioResumidoFun);
 					funcionario.setNome(user.getNome());
 					funcionario.setCelular(user.getCelular());
 					funcionario.setTelefoneFixo(user.getTelefoneFixo());
-					funcionario.setNomeUsuario(user.getNomeUsuario());
-					String encodedPassFun = passwordEncoder.encode(user.getPassword());
+					funcionario.setNomeUsuario(user.getNomeUsuario()); 
 					funcionario.setPassword(encodedPassFun);
 					funcionario.setCpf(user.getCpf());
 					funcionario.setDataNascimento(user.getDataNascimento());
 					funcionario.setEmail(user.getEmail());
 					funcionario.setEndereco(enderecoNovo);
-					funcionario.setUser(usuarioResumido);
+					funcionario.setUser(usuarioResumidoFun);
 					funcionarioService.salvar(funcionario);
 					break;
 				case "CLIENTE":
@@ -133,23 +142,31 @@ public class UserController {
 							.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
 					roles.add(userRole);
 					Cliente cliente = new Cliente();
+					User usuarioResumidoCli = new User();
+					String encodedPassCli = passwordEncoder.encode(user.getPassword());
+					usuarioResumidoCli.setNomeUsuario(user.getNomeUsuario());
+					usuarioResumidoCli.setEmail(user.getEmail());
+					usuarioResumidoCli.setRoles(roles);
+					usuarioResumidoCli.setPassword(encodedPassCli);
+					userService.save(usuarioResumidoCli);
 					cliente.setNome(user.getNome());
 					cliente.setTelefoneFixo(user.getTelefoneFixo());
 					cliente.setCelular(user.getCelular());
 					cliente.setNomeUsuario(user.getNomeUsuario());
-					String encodedPassCli = passwordEncoder.encode(user.getPassword());
 					cliente.setPassword(encodedPassCli);
 					cliente.setCpf(user.getCpf());
 					cliente.setDataNascimento(user.getDataNascimento());
 					cliente.setEmail(user.getEmail());
 					cliente.setEndereco(enderecoNovo);
-					cliente.setUser(usuarioResumido);
+					cliente.setUser(usuarioResumidoCli);
 					clienteService.salvar(cliente);
 				}
 			});
 		}
 
 		emailService.envioEmailCadastro(user);
+		
+		
 		
 		//return ResponseEntity.ok(new MessageResponseDTO("Cadastro efetuado com sucesso!"));
 		

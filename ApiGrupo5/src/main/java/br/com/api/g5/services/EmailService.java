@@ -79,8 +79,8 @@ public class EmailService {
 			StringBuilder builder = new StringBuilder();
 			builder.append("<html>\r\n");
 			builder.append("	<body>\r\n");
-			builder.append("		<img src=\"cid:logo1\">\r\n");
 			builder.append("		<div align=\"center\">\r\n");
+			builder.append("		<img src=\"cid:logo1\">\r\n");
 			builder.append("			<h1>Confirmação de Cadastro</h1>\r\n");
 			builder.append("		</div>\r\n");
 			builder.append("		<br/>\r\n");
