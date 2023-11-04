@@ -143,6 +143,10 @@ public class ProdutoService {
 		}
 	}
 
+	public void remover(Integer id) {
+		produtoRepository.deleteById(id);
+	}
+
 	//tipo inteiro para pegarmos já o número
 	// public Integer buscarPorProduto(Produto produto) {
 	// 	ProdutoDTO infoProduto = new ProdutoDTO();

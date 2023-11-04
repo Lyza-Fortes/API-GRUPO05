@@ -14,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,7 @@ import br.com.api.g5.services.EnderecoService;
 import br.com.api.g5.services.FuncionarioService;
 import br.com.api.g5.services.UserService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -92,7 +94,7 @@ public class UserController {
 		enderecoRepository.save(enderecoNovo);
 		List<Endereco> enderecos = new ArrayList<>();
 		enderecos.add(enderecoNovo);
-		
+
 		User usuarioResumido = new User();
 		usuarioResumido.setNomeUsuario(user.getNomeUsuario());
 		usuarioResumido.setEmail(user.getEmail());

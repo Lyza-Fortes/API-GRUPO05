@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,7 @@ import br.com.api.g5.dto.ProdutoAtualizarDTO;
 import br.com.api.g5.dto.ProdutoDTO;
 import br.com.api.g5.services.ProdutoService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/produto")
 public class ProdutoController {
@@ -48,6 +50,11 @@ public class ProdutoController {
 	@DeleteMapping("/remover/{id}")
 	public void removerLogico(@PathVariable Integer id) {
 		produtoService.removerLogico(id);
+	}
+
+	@DeleteMapping("/removerDefinitivo/{id}")
+	public void remover(@PathVariable Integer id) {
+		produtoService.remover(id);
 	}
 
 

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class ProdutoDTO {
 	
+	private Integer id;
 	private String nome;
 	private String descricao;
 	private LocalDate dataFab;
@@ -26,7 +27,6 @@ public class ProdutoDTO {
 
 	public ProdutoDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getNome() {
@@ -83,6 +83,14 @@ public class ProdutoDTO {
 
 	public void setCategoriaDTO(CategoriaDTO categoriaDTO) {
 		this.categoriaDTO = categoriaDTO;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 		
 }

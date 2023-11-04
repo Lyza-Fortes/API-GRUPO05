@@ -50,7 +50,7 @@ public class Produto {
 	@Column(name = "ativo_produto")
 	private Boolean ativo = true;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 

@@ -101,6 +101,7 @@ public class Conversores {
 		
 		public ProdutoDTO converterProdutoDTO(Produto produto) {
 			ProdutoDTO produtoConvertido = new ProdutoDTO();
+			produtoConvertido.setId(produto.getId());
 			produtoConvertido.setNome(produto.getNome());
 			produtoConvertido.setDescricao(produto.getDescricao());
 			produtoConvertido.setDataFab(produto.getDataFab());
