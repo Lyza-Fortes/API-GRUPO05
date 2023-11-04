@@ -142,7 +142,6 @@ public class ProdutoService {
 			produtoRepository.save(produto);
 		}
 	}
-<<<<<<< HEAD
 
 	public void remover(Integer id) {
 		produtoRepository.deleteById(id);
@@ -155,6 +154,4 @@ public class ProdutoService {
 	// 	infoProduto = converterProdutoDTO(produto);
 	// 	return infoProduto;
 	// }
-=======
->>>>>>> 20a4a3bae75d584705639469b1e8ba119a5ec7de
 }
