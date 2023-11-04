@@ -83,9 +83,9 @@ Este projeto foi desenvolvido por um grupo de 6 pessoas. É um projeto de códig
 
 ### Nome dos Integrantes:
 
-+ Arthur Monteiro
-+ Elizama Fortes
-+ Paulo Jeferson
-+ Pedro Texeira
-+ Victor Soares
-+ Taissa Bastos
++ <a href="https://github.com/0ArS0"> Arthur Monteiro </a>
++ <a href="https://github.com/Lyza-Fortes"> Elizama Fortes
++ <a href="https://github.com/Paulo-Jeferson"> Paulo Jeferson
++ <a href="https://github.com/PedroTeixeira13"> Pedro Texeira
++ <a href="https://github.com/VictorSoares-C"> Victor Soares
++ <a href="https://github.com/Taissa-Bastos"> Taissa Bastos
