@@ -94,7 +94,6 @@ public class UserController {
 		enderecoRepository.save(enderecoNovo);
 		List<Endereco> enderecos = new ArrayList<>();
 		enderecos.add(enderecoNovo);
-<<<<<<< HEAD
 
 		User usuarioResumido = new User();
 		usuarioResumido.setNomeUsuario(user.getNomeUsuario());
@@ -103,9 +102,7 @@ public class UserController {
 		String encodedPass = passwordEncoder.encode(user.getPassword());
 		usuarioResumido.setPassword(encodedPass);
 		userService.save(usuarioResumido);
-=======
->>>>>>> 20a4a3bae75d584705639469b1e8ba119a5ec7de
-		
+
 		if (strRoles == null) {
 			Role userRole = roleRepository.findByName(TipoRoleEnum.ROLE_CLIENTE)
 					.orElseThrow(() -> new RuntimeException("Erro: Role não encontrada."));
