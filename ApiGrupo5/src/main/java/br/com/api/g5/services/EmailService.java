@@ -22,6 +22,8 @@ import br.com.api.g5.dto.UserDTO;
 import br.com.api.g5.entities.Cliente;
 import br.com.api.g5.entities.PedidoProduto;
 import br.com.api.g5.entities.User;
+import br.com.api.g5.entities.Email;
+import br.com.api.g5.repositories.EmailRepository;
 
 @Configuration
 @Service
@@ -36,6 +38,13 @@ public class EmailService {
 	@Autowired
 	public void setJavaMailSender(JavaMailSender emailSender) {
 		this.emailSender = emailSender;
+	}
+
+	@Autowired
+	EmailRepository emailRepository;
+
+	public Email save(Email emailTo) {
+		return emailRepository.save(emailTo);
 	}
 
 	@Value("${spring.mail.host}")
@@ -63,6 +72,78 @@ public class EmailService {
 		prop.put("mail.smtp.starttls.enable", "true");
 		emailSender.setJavaMailProperties(prop);
 		return emailSender;
+	}
+
+	public void enviarEmail(Email email) {
+		MimeMessage mensagemCliente = emailSender.createMimeMessage();
+
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(mensagemCliente, true);
+			helper.setFrom("grupo5api20232@gmail.com");
+			helper.setTo(email.getEmail());
+			helper.setSubject("Mensagem recebida!");
+
+			LocalDate localDate = LocalDate.now();
+
+			StringBuilder builder = new StringBuilder();
+			builder.append("<html>\r\n");
+			builder.append("	<body>\r\n");
+			builder.append("		<div align=\"center\">\r\n");
+			builder.append("		<img src=\"cid:logo1\">\r\n");
+			builder.append("			<h1>Confirmação de Recebimento de Mensagem</h1>\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<br/>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			Olá,\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append(
+					"			Agradecemos pela sua mensagem, recebemos e em breve entraremos em contato!\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Assunto da mensagem:\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append(email.getAssunto());
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			Aqui está sua mensagem: \r\n");
+			builder.append(email.getMensagem());
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			Data de Envio: \r\n");
+			builder.append(localDate);
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append(
+					"			O nosso prazo de retorno é de até 48h, enquanto isso pedimos encarecidamente a sua paciência.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append(
+					"			Se você tiver alguma dúvida ou precisar de assistência, não hesite em entrar em contato conosco pelo e-mail: grupo5api20232@gmail.com. Nossa equipe de suporte estará pronta para ajudar.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			<br/>\r\n");
+			builder.append("			Atenciosamente,\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("		<div align=\"left\">\r\n");
+			builder.append("			A Equipe da GroupFive.\r\n");
+			builder.append("		</div>\r\n");
+			builder.append("	</body>\r\n");
+			builder.append("</html>\r\n");
+
+			helper.setText(builder.toString(), true);
+			ClassPathResource img = new ClassPathResource("img/logo.png");
+			helper.addInline("logo1", img);
+			emailSender.send(mensagemCliente);
+		}catch (MessagingException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void envioEmailCadastro(UserDTO user) {
